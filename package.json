@@ -1,0 +1,36 @@
+{
+  "name": "auto-guardian",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "^3.0.79",
+    "@ai-sdk/google": "^3.0.79",
+    "@anthropic-ai/sdk": "^0.98.0",
+    "@supabase/supabase-js": "^2.45.0",
+    "ai": "^6.0.191",
+    "dexie": "^4.0.8",
+    "dexie-react-hooks": "^1.1.7",
+    "framer-motion": "^11.5.4",
+    "lucide-react": "^0.453.0",
+    "next": "^14.2.35",
+    "openai": "^6.39.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.40",
+    "tailwindcss": "^3.4.7",
+    "typescript": "^5.5.0"
+  }
+}
