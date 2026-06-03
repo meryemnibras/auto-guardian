@@ -6,9 +6,18 @@ export type SyncStatus =
   | "error"
   | "not-configured";
 
+export interface TableSyncCount {
+  pushed: number;
+  pulled: number;
+}
+
 export interface SyncSummary {
-  expensesSynced: number;
-  diagnosticsSynced: number;
+  /** Total rows uploaded to the cloud across all tables. */
+  pushed: number;
+  /** Total rows downloaded from the cloud across all tables. */
+  pulled: number;
+  /** Per-table breakdown keyed by Dexie table name. */
+  perTable: Record<string, TableSyncCount>;
   errors: string[];
   lastSyncedAt: string | null;
 }

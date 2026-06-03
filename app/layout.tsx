@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { LanguageProvider } from "@/components/LanguageProvider";
+import { AuthProvider } from "@/components/auth/AuthProvider";
 import { SyncStatusIndicator } from "@/components/sync/SyncStatusIndicator";
 import { ServiceWorkerRegistrar } from "@/components/sync/ServiceWorkerRegistrar";
 
@@ -42,9 +43,11 @@ export default function RootLayout({
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <body className="bg-slate-950 text-slate-100 antialiased">
         <LanguageProvider>
-          <ServiceWorkerRegistrar />
-          <SyncStatusIndicator />
-          {children}
+          <AuthProvider>
+            <ServiceWorkerRegistrar />
+            <SyncStatusIndicator />
+            {children}
+          </AuthProvider>
         </LanguageProvider>
       </body>
     </html>

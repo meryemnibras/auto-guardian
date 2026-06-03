@@ -78,6 +78,33 @@ export class AutoGuardianDB extends Dexie {
       maintenanceLog: "++id, type, serviceKm, date",
       fuel: "++id, odometerKm, date",
     });
+
+    // v6 — extends cloud sync to fuel + maintenance log. Adds isSynced indexes
+    // and backfills isSynced=false on existing rows so the first sync after
+    // login uploads the full local history.
+    this.version(6)
+      .stores({
+        expenses: "++id, category, date, isSynced, syncedAt, cloudId",
+        diagnostics: "++id, date, isSynced, syncedAt, cloudId",
+        location: "++id, timestamp",
+        chats: "++id, updatedAt",
+        maintenanceLog: "++id, type, serviceKm, date, isSynced, cloudId",
+        fuel: "++id, odometerKm, date, isSynced, cloudId",
+      })
+      .upgrade(async (tx) => {
+        await tx
+          .table("fuel")
+          .toCollection()
+          .modify((rec: FuelEntry) => {
+            if (rec.isSynced === undefined) rec.isSynced = false;
+          });
+        await tx
+          .table("maintenanceLog")
+          .toCollection()
+          .modify((rec: MaintenanceLogEntry) => {
+            if (rec.isSynced === undefined) rec.isSynced = false;
+          });
+      });
   }
 }
 

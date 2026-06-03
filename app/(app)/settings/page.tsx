@@ -16,6 +16,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useTranslation } from "@/components/LanguageProvider";
+import { AuthPanel } from "@/components/auth/AuthPanel";
 import {
   buildFullBackup,
   buildExpensesCsv,
@@ -165,6 +166,9 @@ export default function SettingsPage() {
           أدر بيانات تطبيقك المحلية، صدّر نسخة احتياطية، وتحكّم في اللغة.
         </p>
       </header>
+
+      {/* Account & cloud sync */}
+      <AuthPanel />
 
       {/* Storage stats */}
       <article className="space-y-3 rounded-3xl border border-gray-800 bg-gray-950/70 p-5 shadow-lg backdrop-blur">

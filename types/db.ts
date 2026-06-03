@@ -41,7 +41,7 @@ export interface Chat {
 
 export type MaintenanceType = "oil" | "air" | "tires";
 
-export interface MaintenanceLogEntry {
+export interface MaintenanceLogEntry extends SyncFields {
   id?: number;
   type: MaintenanceType;
   serviceKm: number;
@@ -49,7 +49,7 @@ export interface MaintenanceLogEntry {
   notes?: string;
 }
 
-export interface FuelEntry {
+export interface FuelEntry extends SyncFields {
   id?: number;
   odometerKm: number;
   liters: number;
@@ -76,13 +76,24 @@ export interface TableEntityMap {
   fuel: FuelEntry;
 }
 
-export type SyncableTableName = "expenses" | "diagnostics";
+export type SyncableTableName =
+  | "expenses"
+  | "diagnostics"
+  | "fuel"
+  | "maintenanceLog";
 
 export const SYNCABLE_TABLES: readonly SyncableTableName[] = [
   "expenses",
   "diagnostics",
+  "fuel",
+  "maintenanceLog",
 ] as const;
 
 export function isSyncableTable(name: TableName): name is SyncableTableName {
-  return name === "expenses" || name === "diagnostics";
+  return (
+    name === "expenses" ||
+    name === "diagnostics" ||
+    name === "fuel" ||
+    name === "maintenanceLog"
+  );
 }
