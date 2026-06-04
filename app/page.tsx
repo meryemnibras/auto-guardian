@@ -189,11 +189,21 @@ export default function ChatPage() {
                 <span className="ms-1 inline-flex items-center gap-1 rounded-full bg-slate-800 px-1.5 py-0.5 text-[10px] font-medium text-slate-300">
                   <span
                     className={`h-1.5 w-1.5 rounded-full ${
-                      provider === "anthropic" ? "bg-violet-400" : "bg-emerald-400"
+                      provider === "anthropic"
+                        ? "bg-violet-400"
+                        : provider === "groq"
+                          ? "bg-orange-400"
+                          : "bg-emerald-400"
                     }`}
                     aria-hidden
                   />
-                  {provider === "anthropic" ? "Claude" : "Gemini"}
+                  {provider === "anthropic"
+                    ? "Claude"
+                    : provider === "groq"
+                      ? "Groq"
+                      : provider === "gemini"
+                        ? "Gemini"
+                        : provider}
                 </span>
               )}
             </p>
