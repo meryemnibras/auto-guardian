@@ -88,7 +88,7 @@ export function HeroSection() {
             className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row lg:justify-start"
           >
             <a
-              href="#pricing"
+              href="/checkout"
               className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/30 transition-all hover:scale-[1.03] hover:shadow-violet-500/40 sm:text-base"
             >
               {dict.heroCtaPrimary}

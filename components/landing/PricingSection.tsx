@@ -5,6 +5,8 @@ import { Check, Sparkles } from "lucide-react";
 import { MotionSection } from "./MotionSection";
 import { getLandingDict, type LandingDict } from "@/lib/landingI18n";
 import { useTranslation } from "@/components/LanguageProvider";
+import { useCurrency } from "@/components/CurrencyProvider";
+import { PRO_PRICE, formatPrice } from "@/lib/currency";
 
 interface Tier {
   nameKey: keyof LandingDict;
@@ -47,7 +49,9 @@ const TIERS: Tier[] = [
 
 export function PricingSection() {
   const { language } = useTranslation();
+  const { currency } = useCurrency();
   const dict = getLandingDict(language);
+  const proPriceFormatted = formatPrice(PRO_PRICE[currency], currency, language);
   const isArabic = language === "ar";
 
   return (
@@ -112,7 +116,7 @@ export function PricingSection() {
                         : "text-white"
                     }`}
                   >
-                    {dict[tier.amountKey]}
+                    {tier.highlighted ? proPriceFormatted : dict[tier.amountKey]}
                   </span>
                   {tier.periodKey && (
                     <span className="text-sm text-slate-400">{dict[tier.periodKey]}</span>
@@ -137,7 +141,7 @@ export function PricingSection() {
                 </ul>
 
                 <a
-                  href="#download"
+                  href={tier.highlighted ? "/checkout" : "#download"}
                   className={`mt-8 inline-flex w-full items-center justify-center rounded-2xl px-6 py-3 text-sm font-semibold transition-all ${
                     tier.highlighted
                       ? "bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 text-white shadow-lg shadow-blue-500/30 hover:scale-[1.02] hover:shadow-violet-500/40"

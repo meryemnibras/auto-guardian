@@ -172,6 +172,38 @@ export interface LandingDict {
   footerRights: string;
   footerBuilt: string;
   footerDesignedBy: string;
+
+  // Checkout / Payment
+  checkoutTitle: string;
+  checkoutSubtitle: string;
+  checkoutBack: string;
+  checkoutSecure: string;
+  checkoutCardSection: string;
+  checkoutCardholderName: string;
+  checkoutCardholderPlaceholder: string;
+  checkoutCardNumber: string;
+  checkoutCardExpiry: string;
+  checkoutCardCvv: string;
+  checkoutBillingSection: string;
+  checkoutEmail: string;
+  checkoutEmailPlaceholder: string;
+  checkoutCountry: string;
+  checkoutTerms: string;
+  checkoutPay: string;
+  checkoutProcessing: string;
+  checkoutSuccessTitle: string;
+  checkoutSuccessDesc: string;
+  checkoutSummaryTitle: string;
+  checkoutSummaryPlan: string;
+  checkoutSummaryBilled: string;
+  checkoutSummarySubtotal: string;
+  checkoutSummaryVat: string;
+  checkoutSummaryTotal: string;
+  checkoutTrustEncrypted: string;
+  checkoutTrustCancel: string;
+  checkoutTrustRefund: string;
+  checkoutMoneyBack: string;
+  checkoutDemoNote: string;
 }
 
 const ar: LandingDict = {
@@ -362,6 +394,40 @@ const ar: LandingDict = {
   footerRights: "© 2026 AI DriveX. جميع الحقوق محفوظة.",
   footerBuilt: "صُمم بحب لسائقي الخليج والشرق الأوسط.",
   footerDesignedBy: "تصميم وتطوير: Meryem Boulbassir",
+
+  checkoutTitle: "أكمل اشتراكك",
+  checkoutSubtitle: "خطوة واحدة تفصلك عن قيادة أذكى مع AI Pro.",
+  checkoutBack: "الرجوع للصفحة الرئيسية",
+  checkoutSecure: "اتصال مُشفّر آمن",
+  checkoutCardSection: "بيانات البطاقة",
+  checkoutCardholderName: "اسم حامل البطاقة",
+  checkoutCardholderPlaceholder: "MERYEM BOULBASSIR",
+  checkoutCardNumber: "رقم البطاقة",
+  checkoutCardExpiry: "تاريخ الانتهاء",
+  checkoutCardCvv: "CVV",
+  checkoutBillingSection: "بيانات الفواتير",
+  checkoutEmail: "البريد الإلكتروني للإيصال",
+  checkoutEmailPlaceholder: "you@example.com",
+  checkoutCountry: "الدولة",
+  checkoutTerms:
+    "أوافق على شروط الاستخدام وسياسة الخصوصية، وأقرّ بأنه سيتم تجديد الاشتراك تلقائياً.",
+  checkoutPay: "ادفع 300 ر.س الآن",
+  checkoutProcessing: "جارٍ المعالجة…",
+  checkoutSuccessTitle: "تم الدفع بنجاح!",
+  checkoutSuccessDesc:
+    "مرحباً بك في AI Pro. أرسلنا إيصالاً إلى بريدك الإلكتروني، وحسابك جاهز للاستخدام فوراً.",
+  checkoutSummaryTitle: "ملخّص الطلب",
+  checkoutSummaryPlan: "باقة AI Pro",
+  checkoutSummaryBilled: "تُحاسَب شهرياً",
+  checkoutSummarySubtotal: "المجموع الفرعي",
+  checkoutSummaryVat: "ضريبة القيمة المضافة (15%)",
+  checkoutSummaryTotal: "الإجمالي اليوم",
+  checkoutTrustEncrypted: "تشفير 256-bit SSL",
+  checkoutTrustCancel: "إلغاء في أي وقت",
+  checkoutTrustRefund: "ضمان استرداد خلال 7 أيام",
+  checkoutMoneyBack: "ضمان استرداد كامل خلال 7 أيام — بدون أسئلة.",
+  checkoutDemoNote:
+    "هذه واجهة تجريبية — لن يتم تنفيذ أي عملية دفع فعلية. للربط الحقيقي استخدم Stripe أو Tap.",
 };
 
 const en: LandingDict = {
@@ -553,6 +619,40 @@ const en: LandingDict = {
   footerRights: "© 2026 AI DriveX. All rights reserved.",
   footerBuilt: "Built with love for GCC & MENA drivers.",
   footerDesignedBy: "Designed & developed by Meryem Boulbassir",
+
+  checkoutTitle: "Complete your subscription",
+  checkoutSubtitle: "One step away from driving smarter with AI Pro.",
+  checkoutBack: "Back to home",
+  checkoutSecure: "Secure encrypted connection",
+  checkoutCardSection: "Card details",
+  checkoutCardholderName: "Cardholder name",
+  checkoutCardholderPlaceholder: "MERYEM BOULBASSIR",
+  checkoutCardNumber: "Card number",
+  checkoutCardExpiry: "Expiry date",
+  checkoutCardCvv: "CVV",
+  checkoutBillingSection: "Billing details",
+  checkoutEmail: "Email for receipt",
+  checkoutEmailPlaceholder: "you@example.com",
+  checkoutCountry: "Country",
+  checkoutTerms:
+    "I agree to the Terms of Service and Privacy Policy, and acknowledge that my subscription will auto-renew.",
+  checkoutPay: "Pay 300 SAR now",
+  checkoutProcessing: "Processing…",
+  checkoutSuccessTitle: "Payment successful!",
+  checkoutSuccessDesc:
+    "Welcome to AI Pro. We've sent a receipt to your email, and your account is ready to use right now.",
+  checkoutSummaryTitle: "Order summary",
+  checkoutSummaryPlan: "AI Pro plan",
+  checkoutSummaryBilled: "Billed monthly",
+  checkoutSummarySubtotal: "Subtotal",
+  checkoutSummaryVat: "VAT (15%)",
+  checkoutSummaryTotal: "Total today",
+  checkoutTrustEncrypted: "256-bit SSL encryption",
+  checkoutTrustCancel: "Cancel anytime",
+  checkoutTrustRefund: "7-day refund guarantee",
+  checkoutMoneyBack: "Full money-back guarantee within 7 days — no questions asked.",
+  checkoutDemoNote:
+    "This is a demo UI — no real payment will be processed. For live integration use Stripe or Tap.",
 };
 
 const DICTS: Record<LandingLang, LandingDict> = { ar, en };

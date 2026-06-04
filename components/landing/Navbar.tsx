@@ -1,16 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { Languages } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Languages, ChevronDown } from "lucide-react";
 import { NAV_LINKS } from "@/lib/landingData";
 import { getLandingDict } from "@/lib/landingI18n";
 import { useTranslation } from "@/components/LanguageProvider";
+import { useCurrency } from "@/components/CurrencyProvider";
+import { CURRENCIES, CURRENCY_ORDER } from "@/lib/currency";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [logoOk, setLogoOk] = useState(true);
+  const [currencyOpen, setCurrencyOpen] = useState(false);
+  const currencyRef = useRef<HTMLDivElement>(null);
   const { language, setLanguage } = useTranslation();
+  const { currency, setCurrency } = useCurrency();
   const dict = getLandingDict(language);
 
   useEffect(() => {
@@ -19,6 +24,18 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Close currency dropdown on outside click
+  useEffect(() => {
+    if (!currencyOpen) return;
+    function onClick(e: MouseEvent) {
+      if (currencyRef.current && !currencyRef.current.contains(e.target as Node)) {
+        setCurrencyOpen(false);
+      }
+    }
+    window.addEventListener("mousedown", onClick);
+    return () => window.removeEventListener("mousedown", onClick);
+  }, [currencyOpen]);
 
   return (
     <motion.header
@@ -104,6 +121,71 @@ export function Navbar() {
 
           {/* Right actions */}
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* Currency switcher */}
+            <div ref={currencyRef} className="relative">
+              <button
+                type="button"
+                onClick={() => setCurrencyOpen((o) => !o)}
+                aria-label="Select currency"
+                aria-expanded={currencyOpen}
+                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 text-xs font-semibold text-white backdrop-blur-md transition-all hover:border-white/35 hover:bg-white/20"
+              >
+                <span aria-hidden className="text-sm leading-none">
+                  {CURRENCIES[currency].flag}
+                </span>
+                <span>{currency}</span>
+                <ChevronDown
+                  className={`h-3 w-3 transition-transform ${currencyOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+
+              <AnimatePresence>
+                {currencyOpen && (
+                  <motion.ul
+                    initial={{ opacity: 0, y: -6, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -6, scale: 0.96 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute end-0 top-full z-50 mt-2 w-44 overflow-hidden rounded-2xl border border-white/15 bg-slate-900/95 p-1 shadow-2xl shadow-blue-500/20 backdrop-blur-xl"
+                  >
+                    {CURRENCY_ORDER.map((c) => {
+                      const cfg = CURRENCIES[c];
+                      const active = c === currency;
+                      return (
+                        <li key={c}>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setCurrency(c);
+                              setCurrencyOpen(false);
+                            }}
+                            className={`flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left text-sm transition-colors ${
+                              active
+                                ? "bg-gradient-to-r from-cyan-500/15 via-blue-500/15 to-violet-500/15 text-white"
+                                : "text-white/80 hover:bg-white/10 hover:text-white"
+                            }`}
+                          >
+                            <span aria-hidden className="text-base leading-none">
+                              {cfg.flag}
+                            </span>
+                            <span className="flex-1">
+                              <span className="block text-xs font-semibold">{c}</span>
+                              <span className="block text-[10px] text-white/55">
+                                {cfg.name[language === "ar" ? "ar" : "en"]}
+                              </span>
+                            </span>
+                            {active && (
+                              <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
+                            )}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </motion.ul>
+                )}
+              </AnimatePresence>
+            </div>
+
             <button
               type="button"
               onClick={() => setLanguage(language === "ar" ? "en" : "ar")}
@@ -115,7 +197,7 @@ export function Navbar() {
             </button>
 
             <a
-              href="#pricing"
+              href="/checkout"
               className="hidden rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-blue-500/40 ring-1 ring-white/20 transition-all hover:scale-[1.03] hover:shadow-violet-500/50 sm:inline-flex sm:px-5 sm:py-2.5 sm:text-sm"
             >
               {dict.navCta}
