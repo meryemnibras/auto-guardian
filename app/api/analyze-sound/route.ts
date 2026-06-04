@@ -2,8 +2,10 @@ import { z } from "zod";
 import {
   getAnthropic,
   generateWithGemini,
+  generateWithGroq,
   isAnthropicConfigured,
   isGeminiConfigured,
+  isGroqConfigured,
   ANTHROPIC_DEFAULT_MODEL,
 } from "@/src/lib/ai/providers";
 import { PROMPTS } from "@/src/lib/ai/prompts";
@@ -19,7 +21,7 @@ const RequestSchema = z.object({
   description: z.string().min(8).max(2000),
 });
 
-type Source = "ai-anthropic" | "ai-gemini" | "mock";
+type Source = "ai-anthropic" | "ai-groq" | "ai-gemini" | "mock";
 
 interface AnalyzeResponse {
   source: Source;
@@ -93,6 +95,18 @@ async function analyzeViaAnthropic(
   }
 }
 
+async function analyzeViaGroq(
+  description: string
+): Promise<AcousticDiagnosisResult | null> {
+  const text = await generateWithGroq({
+    system: PROMPTS.acousticAnalyst,
+    prompt: JSON_INSTRUCTION(description),
+    maxTokens: 512,
+  });
+  if (!text) return null;
+  return parseModelJson(text);
+}
+
 async function analyzeViaGemini(
   description: string
 ): Promise<AcousticDiagnosisResult | null> {
@@ -131,12 +145,16 @@ export async function POST(req: Request): Promise<Response> {
     const r = await analyzeViaAnthropic(desc);
     if (r) return Response.json({ source: "ai-anthropic", result: r });
   }
+  if (isGroqConfigured) {
+    const r = await analyzeViaGroq(desc);
+    if (r) return Response.json({ source: "ai-groq", result: r });
+  }
   if (isGeminiConfigured) {
     const r = await analyzeViaGemini(desc);
     if (r) return Response.json({ source: "ai-gemini", result: r });
   }
 
-  const hint = isAnthropicConfigured || isGeminiConfigured
+  const hint = isAnthropicConfigured || isGroqConfigured || isGeminiConfigured
     ? "All AI providers failed — check server logs"
     : "No AI provider configured";
   return Response.json(mockFallback(hint));

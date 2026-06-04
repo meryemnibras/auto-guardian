@@ -2,8 +2,10 @@ import { z } from "zod";
 import {
   getAnthropic,
   generateWithGemini,
+  generateWithGroq,
   isAnthropicConfigured,
   isGeminiConfigured,
+  isGroqConfigured,
   ANTHROPIC_DEFAULT_MODEL,
 } from "@/src/lib/ai/providers";
 import { PROMPTS } from "@/src/lib/ai/prompts";
@@ -20,7 +22,7 @@ const RequestSchema = z.object({
   expenses: z.array(ExpenseSchema).max(500),
 });
 
-type Source = "ai-anthropic" | "ai-gemini" | "mock" | "empty";
+type Source = "ai-anthropic" | "ai-groq" | "ai-gemini" | "mock" | "empty";
 type Expenses = z.infer<typeof RequestSchema>["expenses"];
 
 interface SummaryResponse {
@@ -65,6 +67,14 @@ async function summarizeViaAnthropic(expenses: Expenses): Promise<string | null>
   } catch {
     return null;
   }
+}
+
+async function summarizeViaGroq(expenses: Expenses): Promise<string | null> {
+  return generateWithGroq({
+    system: PROMPTS.walletSummarizer,
+    prompt: JSON.stringify({ expenses }),
+    maxTokens: 350,
+  });
 }
 
 async function summarizeViaGemini(expenses: Expenses): Promise<string | null> {
@@ -130,6 +140,17 @@ export async function POST(req: Request): Promise<Response> {
       });
     }
   }
+  if (isGroqConfigured) {
+    const text = await summarizeViaGroq(expenses);
+    if (text) {
+      return Response.json({
+        source: "ai-groq",
+        summary: text,
+        total,
+        topCategory,
+      });
+    }
+  }
   if (isGeminiConfigured) {
     const text = await summarizeViaGemini(expenses);
     if (text) {
@@ -142,7 +163,7 @@ export async function POST(req: Request): Promise<Response> {
     }
   }
 
-  const hint = isAnthropicConfigured || isGeminiConfigured
+  const hint = isAnthropicConfigured || isGroqConfigured || isGeminiConfigured
     ? "All AI providers failed — check server logs"
     : "No AI provider configured";
   return Response.json(mockSummary(expenses, hint));

@@ -2,8 +2,10 @@ import { z } from "zod";
 import {
   getAnthropic,
   generateWithGemini,
+  generateWithGroq,
   isAnthropicConfigured,
   isGeminiConfigured,
+  isGroqConfigured,
   ANTHROPIC_DEFAULT_MODEL,
 } from "@/src/lib/ai/providers";
 import { PROMPTS } from "@/src/lib/ai/prompts";
@@ -24,7 +26,12 @@ const RequestSchema = z.object({
   code: z.string().min(1).max(16),
 });
 
-type ExplanationSource = "local" | "ai-anthropic" | "ai-gemini" | "mock";
+type ExplanationSource =
+  | "local"
+  | "ai-anthropic"
+  | "ai-groq"
+  | "ai-gemini"
+  | "mock";
 
 interface ExplanationResponse {
   source: ExplanationSource;
@@ -89,6 +96,16 @@ async function explainViaAnthropic(code: string): Promise<FaultCodeExplanation |
   }
 }
 
+async function explainViaGroq(code: string): Promise<FaultCodeExplanation | null> {
+  const text = await generateWithGroq({
+    system: PROMPTS.faultCodeExplainer,
+    prompt: JSON_INSTRUCTION(code),
+    maxTokens: 512,
+  });
+  if (!text) return null;
+  return parseModelJson(text, code);
+}
+
 async function explainViaGemini(code: string): Promise<FaultCodeExplanation | null> {
   const text = await generateWithGemini({
     system: PROMPTS.faultCodeExplainer,
@@ -150,7 +167,18 @@ export async function POST(req: Request): Promise<Response> {
     }
   }
 
-  // 3) Gemini if configured (free tier path).
+  // 3) Groq if configured (free tier path).
+  if (isGroqConfigured) {
+    const r = await explainViaGroq(code);
+    if (r) {
+      return Response.json({
+        source: "ai-groq",
+        explanation: r,
+      } satisfies ExplanationResponse);
+    }
+  }
+
+  // 4) Gemini if configured (free tier path).
   if (isGeminiConfigured) {
     const r = await explainViaGemini(code);
     if (r) {
@@ -161,8 +189,8 @@ export async function POST(req: Request): Promise<Response> {
     }
   }
 
-  // 4) Mock fallback with diagnostic hint.
-  const hint = isAnthropicConfigured || isGeminiConfigured
+  // 5) Mock fallback with diagnostic hint.
+  const hint = isAnthropicConfigured || isGroqConfigured || isGeminiConfigured
     ? "All AI providers failed — check server logs"
     : "No AI provider configured";
   return Response.json(mockExplanation(code, hint));

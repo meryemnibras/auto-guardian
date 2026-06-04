@@ -5,6 +5,8 @@ import { PROMPTS } from "@/src/lib/ai/prompts";
 import {
   isAnthropicConfigured,
   isGeminiConfigured,
+  isGroqConfigured,
+  getGroqModel,
   ANTHROPIC_DEFAULT_MODEL,
   GEMINI_DEFAULT_MODEL,
 } from "@/src/lib/ai/providers";
@@ -48,13 +50,22 @@ function friendlyErrorMessage(e: unknown): string {
   return String(e);
 }
 
-function pickPrimaryModel(): { model: LanguageModel; provider: "anthropic" | "gemini" } | null {
-  // Prefer Anthropic when configured; otherwise fall back to free Gemini.
+function pickPrimaryModel(): {
+  model: LanguageModel;
+  provider: "anthropic" | "groq" | "gemini";
+} | null {
+  // Prefer Anthropic when configured; then free Groq; then free Gemini.
   if (isAnthropicConfigured) {
     return {
       model: anthropic(process.env.ANTHROPIC_MODEL ?? ANTHROPIC_DEFAULT_MODEL),
       provider: "anthropic",
     };
+  }
+  if (isGroqConfigured) {
+    const model = getGroqModel();
+    if (model) {
+      return { model, provider: "groq" };
+    }
   }
   if (isGeminiConfigured) {
     const google = createGoogleGenerativeAI({
@@ -74,7 +85,7 @@ export async function POST(req: Request): Promise<Response> {
     return Response.json(
       {
         error:
-          "No AI provider configured. Set ANTHROPIC_API_KEY or GOOGLE_GENERATIVE_AI_API_KEY in .env.local (Gemini is free at aistudio.google.com/apikey).",
+          "No AI provider configured. Set GROQ_API_KEY (free, no card, at console.groq.com/keys), ANTHROPIC_API_KEY, or GOOGLE_GENERATIVE_AI_API_KEY in .env.local.",
       },
       { status: 503 }
     );

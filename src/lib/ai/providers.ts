@@ -12,6 +12,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import OpenAI from "openai";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { createGroq } from "@ai-sdk/groq";
 import { generateText, type LanguageModel } from "ai";
 
 export const ANTHROPIC_DEFAULT_MODEL = "claude-sonnet-4-6";
@@ -19,6 +20,10 @@ export const OPENAI_DEFAULT_MODEL = "gpt-4o-mini";
 // gemini-2.5-flash is in the free tier for new accounts (2026);
 // 2.0-flash moved to paid-only. Override via GEMINI_MODEL if needed.
 export const GEMINI_DEFAULT_MODEL = "gemini-2.5-flash";
+// Groq is free (no card) and available in many regions where the Gemini free
+// tier is denied. llama-3.3-70b is a strong general model. Override via
+// GROQ_MODEL if needed.
+export const GROQ_DEFAULT_MODEL = "llama-3.3-70b-versatile";
 
 export const isAnthropicConfigured: boolean = Boolean(
   process.env.ANTHROPIC_API_KEY && process.env.ANTHROPIC_API_KEY.length > 0
@@ -33,9 +38,14 @@ export const isGeminiConfigured: boolean = Boolean(
     process.env.GOOGLE_GENERATIVE_AI_API_KEY.length > 0
 );
 
+export const isGroqConfigured: boolean = Boolean(
+  process.env.GROQ_API_KEY && process.env.GROQ_API_KEY.length > 0
+);
+
 let _anthropic: Anthropic | null = null;
 let _openai: OpenAI | null = null;
 let _geminiModel: LanguageModel | null = null;
+let _groqModel: LanguageModel | null = null;
 
 export function getAnthropic(): Anthropic | null {
   if (!isAnthropicConfigured) return null;
@@ -93,12 +103,51 @@ export async function generateWithGemini(args: {
   }
 }
 
-export type ProviderName = "anthropic" | "openai" | "gemini" | "mock";
+export function getGroqModel(): LanguageModel | null {
+  if (!isGroqConfigured) return null;
+  if (_groqModel) return _groqModel;
+  const provider = createGroq({ apiKey: process.env.GROQ_API_KEY });
+  _groqModel = provider(process.env.GROQ_MODEL ?? GROQ_DEFAULT_MODEL);
+  return _groqModel;
+}
+
+/**
+ * Run a single prompt through Groq (free tier) and return the text response.
+ * Returns null on any failure so callers can fall back gracefully.
+ */
+export async function generateWithGroq(args: {
+  system: string;
+  prompt: string;
+  maxTokens?: number;
+}): Promise<string | null> {
+  const model = getGroqModel();
+  if (!model) return null;
+  try {
+    const result = await generateText({
+      model,
+      system: args.system,
+      prompt: args.prompt,
+      maxOutputTokens: args.maxTokens ?? 512,
+    });
+    return result.text.trim();
+  } catch (e) {
+    console.error("[groq]", e instanceof Error ? e.message : String(e));
+    return null;
+  }
+}
+
+export type ProviderName =
+  | "anthropic"
+  | "openai"
+  | "gemini"
+  | "groq"
+  | "mock";
 
 export interface ProviderAvailability {
   anthropic: boolean;
   openai: boolean;
   gemini: boolean;
+  groq: boolean;
 }
 
 export function listAvailableProviders(): ProviderAvailability {
@@ -106,8 +155,12 @@ export function listAvailableProviders(): ProviderAvailability {
     anthropic: isAnthropicConfigured,
     openai: isOpenAIConfigured,
     gemini: isGeminiConfigured,
+    groq: isGroqConfigured,
   };
 }
 
 export const hasAnyAIProvider: boolean =
-  isAnthropicConfigured || isOpenAIConfigured || isGeminiConfigured;
+  isAnthropicConfigured ||
+  isOpenAIConfigured ||
+  isGeminiConfigured ||
+  isGroqConfigured;
