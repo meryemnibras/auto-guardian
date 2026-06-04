@@ -17,6 +17,13 @@ interface ChatRequest {
 
 const SYSTEM_PROMPT = PROMPTS.driverAssistant;
 
+// Shown only when the configured provider fails at runtime (e.g. revoked /
+// region-blocked key, network error) so the assistant never returns an empty
+// reply. As soon as a valid key is in place, real AI tokens stream instead.
+const FALLBACK_REPLY =
+  "عذرًا، تعذّر الاتصال بالمساعد الذكي حاليًا. يرجى المحاولة بعد قليل.\n" +
+  "(The AI assistant is temporarily unavailable — please try again shortly.)";
+
 interface ApiErrorLike {
   responseBody?: string;
   message?: string;
@@ -87,6 +94,9 @@ export async function POST(req: Request): Promise<Response> {
     );
   }
 
+  const encoder = new TextEncoder();
+  let usedFallback = false;
+
   try {
     const result = streamText({
       model: picked.model,
@@ -100,15 +110,54 @@ export async function POST(req: Request): Promise<Response> {
       },
     });
 
-    return result.toTextStreamResponse({
+    // Wrap the provider's token stream so any runtime failure (revoked /
+    // region-blocked key, network drop) degrades to a clear fallback message
+    // instead of an empty 200 body.
+    const stream = new ReadableStream<Uint8Array>({
+      async start(controller) {
+        let produced = false;
+        try {
+          for await (const chunk of result.textStream) {
+            produced = true;
+            controller.enqueue(encoder.encode(chunk));
+          }
+        } catch (err) {
+          console.error(
+            `[chat] stream aborted (${picked.provider}):`,
+            friendlyErrorMessage(err)
+          );
+        }
+        // Covers both a thrown error AND a silent empty completion (the AI SDK
+        // swallows the throw when onError is set, ending the stream with no
+        // tokens — e.g. a revoked / region-blocked key).
+        if (!produced) {
+          usedFallback = true;
+          controller.enqueue(encoder.encode(FALLBACK_REPLY));
+        }
+        controller.close();
+      },
+    });
+
+    return new Response(stream, {
       headers: {
+        "Content-Type": "text/plain; charset=utf-8",
         "X-Accel-Buffering": "no",
+        // Reflects the provider that was attempted; the client can detect a
+        // degraded reply via the X-Chat-Fallback header below.
         "X-Chat-Provider": picked.provider,
       },
     });
   } catch (e) {
+    // Synchronous failure before streaming started — still return a usable body.
     const message = friendlyErrorMessage(e);
     console.error(`[chat] sync error (${picked.provider}):`, message);
-    return Response.json({ error: message, provider: picked.provider }, { status: 500 });
+    usedFallback = true;
+    return new Response(FALLBACK_REPLY, {
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "X-Chat-Provider": picked.provider,
+        "X-Chat-Fallback": String(usedFallback),
+      },
+    });
   }
 }
