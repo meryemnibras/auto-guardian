@@ -180,8 +180,11 @@ export default function ChatPage() {
             <Sparkles className="h-5 w-5" aria-hidden />
           </span>
           <div>
-            <h1 className="text-xl font-extrabold tracking-tight text-slate-100">
+            <h1 className="flex items-center gap-2 text-xl font-extrabold tracking-tight text-slate-100">
               AI DriveX Chat
+              <span className="rounded-full border border-amber-400/40 bg-amber-400/10 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-amber-300">
+                Beta
+              </span>
             </h1>
             <p className="text-xs text-slate-400">
               مساعد ذكي للسيارات
@@ -299,6 +302,10 @@ export default function ChatPage() {
             )}
           </button>
         </div>
+        <p className="mt-2 text-center text-[10px] leading-relaxed text-slate-500">
+          نسخة تجريبية (Beta) — الإجابات إرشادية بمساعدة الذكاء الاصطناعي ولا
+          تُغني عن فحص فنّي صيانة معتمد.
+        </p>
       </form>
     </div>
   );
