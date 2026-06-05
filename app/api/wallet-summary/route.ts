@@ -9,6 +9,7 @@ import {
   ANTHROPIC_DEFAULT_MODEL,
 } from "@/src/lib/ai/providers";
 import { PROMPTS } from "@/src/lib/ai/prompts";
+import { rateLimit, clientIp } from "@/src/lib/rateLimit";
 
 export const maxDuration = 30;
 
@@ -100,6 +101,14 @@ function mockSummary(expenses: Expenses, hint: string): SummaryResponse {
 }
 
 export async function POST(req: Request): Promise<Response> {
+  const rl = rateLimit(clientIp(req), "wallet-summary", 20, 60_000);
+  if (!rl.ok) {
+    return Response.json(
+      { error: "Too many requests — please slow down." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
+    );
+  }
+
   let raw: unknown;
   try {
     raw = await req.json();

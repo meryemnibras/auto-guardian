@@ -10,6 +10,12 @@ import {
   ANTHROPIC_DEFAULT_MODEL,
   GEMINI_DEFAULT_MODEL,
 } from "@/src/lib/ai/providers";
+import { rateLimit, clientIp } from "@/src/lib/rateLimit";
+
+// Abuse guard: cap chat requests per client so a single visitor can't drain
+// the shared free AI quota during a public demo. Tune via env if needed.
+const CHAT_RATE_LIMIT = Number(process.env.CHAT_RATE_LIMIT ?? 15);
+const CHAT_RATE_WINDOW_MS = Number(process.env.CHAT_RATE_WINDOW_MS ?? 60_000);
 
 export const maxDuration = 30;
 
@@ -80,6 +86,30 @@ function pickPrimaryModel(): {
 }
 
 export async function POST(req: Request): Promise<Response> {
+  // Rate-limit before doing any work so abusive traffic is cheap to reject.
+  const rl = rateLimit(
+    clientIp(req),
+    "chat",
+    CHAT_RATE_LIMIT,
+    CHAT_RATE_WINDOW_MS
+  );
+  if (!rl.ok) {
+    return Response.json(
+      {
+        error:
+          "عدد كبير من الطلبات في وقت قصير. يرجى الانتظار قليلاً ثم المحاولة مجددًا.\n(Too many requests — please slow down and try again shortly.)",
+      },
+      {
+        status: 429,
+        headers: {
+          "Retry-After": String(rl.retryAfter),
+          "X-RateLimit-Limit": String(rl.limit),
+          "X-RateLimit-Remaining": String(rl.remaining),
+        },
+      }
+    );
+  }
+
   const picked = pickPrimaryModel();
   if (!picked) {
     return Response.json(

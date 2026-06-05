@@ -9,6 +9,7 @@ import {
   ANTHROPIC_DEFAULT_MODEL,
 } from "@/src/lib/ai/providers";
 import { PROMPTS } from "@/src/lib/ai/prompts";
+import { rateLimit, clientIp } from "@/src/lib/rateLimit";
 import { getFaultCodeExplanation } from "@/lib/faultCodes";
 import type { FaultCodeExplanation, FaultUrgency } from "@/types/mechanical";
 
@@ -133,6 +134,14 @@ function mockExplanation(code: string, hint: string): ExplanationResponse {
 }
 
 export async function POST(req: Request): Promise<Response> {
+  const rl = rateLimit(clientIp(req), "explain-code", 20, 60_000);
+  if (!rl.ok) {
+    return Response.json(
+      { error: "Too many requests — please slow down." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
+    );
+  }
+
   let raw: unknown;
   try {
     raw = await req.json();
