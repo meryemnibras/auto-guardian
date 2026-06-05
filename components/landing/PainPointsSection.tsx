@@ -176,7 +176,7 @@ export function PainPointsSection() {
   void Arrow;
 
   return (
-    <MotionSection className="relative py-20 sm:py-28" id="pain">
+    <MotionSection className="relative py-14 sm:py-20 lg:py-28" id="pain">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute left-1/4 top-10 h-[420px] w-[420px] rounded-full bg-blue-600/15 blur-[140px]" />
         <div className="absolute right-1/4 bottom-10 h-[380px] w-[380px] rounded-full bg-violet-600/12 blur-[140px]" />

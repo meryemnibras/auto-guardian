@@ -11,7 +11,7 @@ export function FeaturesSection() {
   const dict = getLandingDict(language);
 
   return (
-    <MotionSection className="relative py-20 sm:py-28" id="features">
+    <MotionSection className="relative py-14 sm:py-20 lg:py-28" id="features">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute left-1/2 top-0 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-blue-600/10 blur-[140px]" />
       </div>

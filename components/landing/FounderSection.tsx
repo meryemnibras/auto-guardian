@@ -37,7 +37,7 @@ export function FounderSection() {
   const isArabic = language === "ar";
 
   return (
-    <MotionSection className="relative overflow-hidden py-16 sm:py-20" id="founder">
+    <MotionSection className="relative overflow-hidden py-14 sm:py-20" id="founder">
       {/* Atmospheric backgrounds */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute left-1/4 top-1/4 h-[460px] w-[460px] rounded-full bg-violet-600/15 blur-[140px]" />

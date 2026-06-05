@@ -34,7 +34,7 @@ export function HeroSection() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden pt-32 pb-24 sm:pt-40 sm:pb-32"
+      className="relative overflow-hidden pt-24 pb-16 sm:pt-32 sm:pb-24 lg:pt-40 lg:pb-32"
     >
       {/* Layered background */}
       <div className="pointer-events-none absolute inset-0 -z-10">
@@ -44,7 +44,7 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(15,23,42,0)_0%,rgba(2,6,23,0.8)_60%,rgba(2,6,23,1)_100%)]" />
       </div>
 
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 sm:gap-12 sm:px-6 lg:grid-cols-2 lg:px-8">
         {/* Copy */}
         <div className={`text-center ${isArabic ? "lg:text-right" : "lg:text-left"}`}>
           <motion.div
@@ -61,7 +61,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="mt-6 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl"
+            className="mt-5 text-3xl font-extrabold leading-[1.15] tracking-tight text-white sm:mt-6 sm:text-5xl lg:text-6xl"
           >
             {dict.heroTitleLine1}
             <br />
@@ -76,7 +76,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg lg:mx-0"
+            className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-slate-300 sm:mt-6 sm:text-lg lg:mx-0"
           >
             {dict.heroSubtitle}
           </motion.p>
@@ -85,17 +85,17 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row lg:justify-start"
+            className="mt-6 flex flex-col items-stretch justify-center gap-2.5 sm:mt-8 sm:flex-row sm:gap-3 lg:justify-start"
           >
             <a
               href="/checkout"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/30 transition-all hover:scale-[1.03] hover:shadow-violet-500/40 sm:text-base"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/30 transition-all hover:scale-[1.03] hover:shadow-violet-500/40 sm:px-6 sm:py-3 sm:text-base"
             >
               {dict.heroCtaPrimary}
             </a>
             <a
               href="#how"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition-all hover:border-white/30 hover:bg-white/10 sm:text-base"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur transition-all hover:border-white/30 hover:bg-white/10 sm:px-6 sm:py-3 sm:text-base"
             >
               <Play className="h-4 w-4" />
               {dict.heroCtaSecondary}
@@ -145,12 +145,12 @@ export function HeroSection() {
           {/* Big faded logo watermark — brand identity behind the phone */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 -z-10 grid place-items-center"
+            className="pointer-events-none absolute inset-0 -z-10 hidden place-items-center sm:grid"
           >
             <img
               src="/logo.png"
               alt=""
-              className="h-[480px] w-[480px] object-contain opacity-[0.08] blur-[1px] [mask-image:radial-gradient(circle,black_35%,transparent_75%)]"
+              className="h-[360px] w-[360px] object-contain opacity-[0.08] blur-[1px] [mask-image:radial-gradient(circle,black_35%,transparent_75%)] sm:h-[480px] sm:w-[480px]"
               onError={(e) => {
                 (e.currentTarget as HTMLImageElement).style.display = "none";
               }}
@@ -192,8 +192,8 @@ const BADGE_SLOTS: Array<{ side: "left" | "right"; top: string; offset: string }
 
 function PhoneOrbit({ dict }: { dict: LandingDict }) {
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[620px]">
-      {/* Orbit rings */}
+    <div className="relative mx-auto flex w-full items-center justify-center sm:block sm:aspect-square sm:max-w-[620px]">
+      {/* Orbit rings — only on sm+ where the orbital layout has room */}
       <div
         aria-hidden
         className="absolute left-1/2 top-1/2 hidden h-[94%] w-[94%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-white/10 sm:block"
@@ -203,8 +203,8 @@ function PhoneOrbit({ dict }: { dict: LandingDict }) {
         className="absolute left-1/2 top-1/2 hidden h-[72%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-white/5 sm:block"
       />
 
-      {/* Phone center */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+      {/* Phone — naturally placed on mobile, absolute-centered on sm+ */}
+      <div className="sm:absolute sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2">
         <PhoneMockup dict={dict} />
       </div>
 
@@ -264,7 +264,7 @@ function PhoneMockup({ dict }: { dict: LandingDict }) {
       />
 
       {/* Phone frame */}
-      <div className="relative aspect-[9/19] w-[260px] rounded-[3rem] border border-white/10 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 p-[3px] shadow-[0_40px_120px_-20px_rgba(59,130,246,0.55),0_0_0_1px_rgba(255,255,255,0.04)] sm:w-[280px]">
+      <div className="relative aspect-[9/19] w-[220px] rounded-[3rem] border border-white/10 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 p-[3px] shadow-[0_40px_120px_-20px_rgba(59,130,246,0.55),0_0_0_1px_rgba(255,255,255,0.04)] sm:w-[260px] lg:w-[280px]">
         {/* Side buttons */}
         <span
           aria-hidden

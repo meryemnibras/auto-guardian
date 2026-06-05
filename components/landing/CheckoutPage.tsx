@@ -140,7 +140,7 @@ export function CheckoutPage() {
     <div className="relative min-h-screen scroll-smooth bg-slate-950 text-slate-100 selection:bg-blue-500/40 selection:text-white">
       <Navbar />
 
-      <main className="relative pt-32 pb-24 sm:pt-36">
+      <main className="relative pt-24 pb-16 sm:pt-32 sm:pb-24 lg:pt-36">
         {/* Background gradients */}
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute -top-40 right-1/4 h-[480px] w-[480px] rounded-full bg-violet-600/20 blur-[120px]" />
@@ -159,21 +159,21 @@ export function CheckoutPage() {
           </Link>
 
           {/* Header */}
-          <div className="mt-6 mb-10 max-w-2xl">
+          <div className="mt-5 mb-8 max-w-2xl sm:mt-6 sm:mb-10">
             <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-3 py-1 text-xs font-medium text-cyan-200 backdrop-blur">
               <Lock className="h-3.5 w-3.5" />
               {dict.checkoutSecure}
             </span>
-            <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
+            <h1 className="mt-4 text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
               {dict.checkoutTitle}
             </h1>
-            <p className="mt-3 text-base text-slate-300 sm:text-lg">{dict.checkoutSubtitle}</p>
+            <p className="mt-2 text-sm text-slate-300 sm:mt-3 sm:text-lg">{dict.checkoutSubtitle}</p>
           </div>
 
           {success ? (
             <SuccessCard dict={dict} />
           ) : (
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-5 lg:gap-8">
               {/* Payment form */}
               <motion.form
                 initial={{ opacity: 0, y: 20 }}
@@ -524,7 +524,7 @@ function Card({
           className="pointer-events-none absolute -inset-px rounded-3xl bg-gradient-to-br from-cyan-400/50 via-blue-500/40 to-violet-500/50 opacity-60"
         />
       )}
-      <div className="relative rounded-3xl border border-white/10 bg-slate-900/60 p-6 backdrop-blur-xl">
+      <div className="relative rounded-3xl border border-white/10 bg-slate-900/60 p-5 backdrop-blur-xl sm:p-6">
         {children}
       </div>
     </div>

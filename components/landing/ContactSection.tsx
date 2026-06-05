@@ -36,7 +36,7 @@ export function ContactSection() {
       : "Hi! I'd like to learn more about AI DriveX.";
 
   return (
-    <MotionSection className="relative py-20 sm:py-28" id="contact">
+    <MotionSection className="relative py-14 sm:py-20 lg:py-28" id="contact">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute -top-20 right-10 h-[360px] w-[360px] rounded-full bg-emerald-500/15 blur-[130px]" />
         <div className="absolute -bottom-20 left-10 h-[360px] w-[360px] rounded-full bg-blue-500/20 blur-[130px]" />

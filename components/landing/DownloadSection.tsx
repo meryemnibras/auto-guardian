@@ -11,9 +11,9 @@ export function DownloadSection() {
   const isArabic = language === "ar";
 
   return (
-    <MotionSection className="relative py-20 sm:py-24" id="download">
+    <MotionSection className="relative py-14 sm:py-20 lg:py-24" id="download">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-blue-950/80 via-slate-900 to-violet-950/80 p-8 sm:p-12 lg:p-16">
+        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-blue-950/80 via-slate-900 to-violet-950/80 p-6 sm:rounded-[2.5rem] sm:p-12 lg:p-16">
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute -top-32 right-0 h-80 w-80 rounded-full bg-cyan-500/20 blur-[120px]" />
             <div className="absolute -bottom-32 left-0 h-80 w-80 rounded-full bg-violet-500/30 blur-[120px]" />

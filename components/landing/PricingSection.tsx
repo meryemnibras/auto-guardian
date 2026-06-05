@@ -55,7 +55,7 @@ export function PricingSection() {
   const isArabic = language === "ar";
 
   return (
-    <MotionSection className="relative py-20 sm:py-28" id="pricing">
+    <MotionSection className="relative py-14 sm:py-20 lg:py-28" id="pricing">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <span className="inline-block rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">

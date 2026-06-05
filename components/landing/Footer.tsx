@@ -70,9 +70,9 @@ export function Footer() {
           />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
           {/* 3-column grid */}
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-10">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-10">
             {/* === Brand block — stacked: logo → name → tagline === */}
             <div
               className={`md:col-span-5 ${
@@ -98,18 +98,18 @@ export function Footer() {
                     <img
                       src="/logo.png"
                       alt="AI DriveX"
-                      className="relative h-24 w-24 object-contain drop-shadow-[0_0_28px_rgba(34,211,238,0.85)] sm:h-28 sm:w-28"
+                      className="relative h-16 w-16 object-contain drop-shadow-[0_0_28px_rgba(34,211,238,0.85)] sm:h-24 sm:w-24 lg:h-28 lg:w-28"
                       onError={() => setLogoOk(false)}
                     />
                   ) : (
-                    <span className="text-3xl font-extrabold tracking-tighter text-cyan-300 drop-shadow-[0_0_20px_rgba(34,211,238,0.85)]">
+                    <span className="text-2xl font-extrabold tracking-tighter text-cyan-300 drop-shadow-[0_0_20px_rgba(34,211,238,0.85)] sm:text-3xl">
                       AX
                     </span>
                   )}
                 </div>
 
                 {/* Brand name */}
-                <span className="text-2xl font-bold text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)] sm:text-3xl">
+                <span className="text-xl font-bold text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)] sm:text-2xl lg:text-3xl">
                   AI{" "}
                   <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-400 bg-clip-text text-transparent">
                     DriveX
