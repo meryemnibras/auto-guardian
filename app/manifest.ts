@@ -98,33 +98,11 @@ export default function manifest(): ExtendedManifest {
     ],
 
     /**
-     * Screenshots populate the Play Store listing automatically when the AAB
-     * is generated from this manifest. Place the actual PNGs at the URLs
-     * below — see MOBILE-LAUNCH.md for sizing.
+     * NOTE: Play Store listing screenshots are uploaded separately in the
+     * Play Console — they are NOT taken from the manifest. We intentionally
+     * omit `screenshots` here so packagers (PWABuilder / Bubblewrap) don't
+     * try to fetch placeholder images that don't exist yet.
      */
-    screenshots: [
-      {
-        src: "/screenshots/hero.png",
-        sizes: "1080x1920",
-        type: "image/png",
-        form_factor: "narrow",
-        label: "AI DriveX home — مساعد السيارة الذكي",
-      },
-      {
-        src: "/screenshots/diagnostics.png",
-        sizes: "1080x1920",
-        type: "image/png",
-        form_factor: "narrow",
-        label: "فحص ميكانيكي وأكواد أعطال",
-      },
-      {
-        src: "/screenshots/wallet.png",
-        sizes: "1080x1920",
-        type: "image/png",
-        form_factor: "narrow",
-        label: "محفظة مصاريف السيارة",
-      },
-    ],
 
     /**
      * `prefer_related_applications: false` tells Play Store this PWA IS the
