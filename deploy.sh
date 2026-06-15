@@ -131,6 +131,20 @@ if command -v getenforce >/dev/null 2>&1 && [ "$(getenforce)" != "Disabled" ]; t
   ok "SELinux booleans set"
 fi
 
+# ---- 3.5) Docker DNS — many VPS hosts block Docker's default resolver, so
+#           containers can't reach npm/Alpine mirrors during build. Pin public
+#           DNS so `npm ci` and `apk add` work inside the build container.
+info "Configuring Docker DNS (8.8.8.8 / 1.1.1.1)…"
+mkdir -p /etc/docker
+cat > /etc/docker/daemon.json <<'JSON'
+{
+  "dns": ["8.8.8.8", "1.1.1.1"]
+}
+JSON
+systemctl restart docker
+sleep 3
+ok "Docker DNS configured"
+
 # ---- 4) Build + run the app container -------------------------------------
 info "Building app image (first build takes a few minutes)…"
 cd "${APP_DIR}"
