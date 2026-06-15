@@ -174,9 +174,15 @@ else
   CERTBOT_EMAIL_FLAG="-m ${EMAIL}"
 fi
 info "Requesting Let's Encrypt SSL certificate…"
-if certbot --nginx -d "${DOMAIN}" -d "www.${DOMAIN}" \
-     --non-interactive --agree-tos ${CERTBOT_EMAIL_FLAG} --redirect; then
-  ok "SSL issued — site now serves HTTPS with auto-redirect"
+# Try to include the app subdomain; if its DNS isn't ready yet, fall back to
+# main + www so the primary site still gets HTTPS. Re-running later picks up
+# the subdomain once its A record has propagated.
+if certbot --nginx -d "${DOMAIN}" -d "www.${DOMAIN}" -d "app.${DOMAIN}" \
+     --non-interactive --agree-tos ${CERTBOT_EMAIL_FLAG} --redirect --expand; then
+  ok "SSL issued for ${DOMAIN}, www, and app.${DOMAIN}"
+elif certbot --nginx -d "${DOMAIN}" -d "www.${DOMAIN}" \
+     --non-interactive --agree-tos ${CERTBOT_EMAIL_FLAG} --redirect --expand; then
+  ok "SSL issued for ${DOMAIN} + www (app.${DOMAIN} DNS not ready — re-run later)"
 else
   err "Certbot failed. Most common cause: DNS A record for ${DOMAIN} is not"
   err "pointing to this server (66.29.143.196) yet, or hasn't propagated."
