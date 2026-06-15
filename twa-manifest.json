@@ -1,6 +1,6 @@
 {
   "packageId": "ai.drivex.app",
-  "host": "auto-guardian-kappa.vercel.app",
+  "host": "app.aidrivex.agency",
   "name": "AI DriveX",
   "launcherName": "AI DriveX",
   "display": "standalone",
@@ -13,31 +13,31 @@
   "backgroundColor": "#020617",
   "enableNotifications": true,
   "startUrl": "/?source=twa",
-  "iconUrl": "https://auto-guardian-kappa.vercel.app/icons/icon-512.png",
-  "maskableIconUrl": "https://auto-guardian-kappa.vercel.app/icons/icon-512-maskable.png",
-  "monochromeIconUrl": "https://auto-guardian-kappa.vercel.app/icons/icon-512.png",
+  "iconUrl": "https://app.aidrivex.agency/icons/icon-512.png",
+  "maskableIconUrl": "https://app.aidrivex.agency/icons/icon-512-maskable.png",
+  "monochromeIconUrl": "https://app.aidrivex.agency/icons/icon-512.png",
   "shortcuts": [
     {
       "name": "Diagnostics",
       "shortName": "Diag",
       "url": "/diagnostics",
-      "chosenIconUrl": "https://auto-guardian-kappa.vercel.app/icons/icon-192.png"
+      "chosenIconUrl": "https://app.aidrivex.agency/icons/icon-192.png"
     },
     {
       "name": "Wallet",
       "shortName": "Wallet",
       "url": "/wallet",
-      "chosenIconUrl": "https://auto-guardian-kappa.vercel.app/icons/icon-192.png"
+      "chosenIconUrl": "https://app.aidrivex.agency/icons/icon-192.png"
     },
     {
       "name": "Emergency",
       "shortName": "SOS",
       "url": "/emergency",
-      "chosenIconUrl": "https://auto-guardian-kappa.vercel.app/icons/icon-192.png"
+      "chosenIconUrl": "https://app.aidrivex.agency/icons/icon-192.png"
     }
   ],
   "generatorApp": "Bubblewrap-CLI",
-  "webManifestUrl": "https://auto-guardian-kappa.vercel.app/manifest.webmanifest",
+  "webManifestUrl": "https://app.aidrivex.agency/manifest.webmanifest",
   "fallbackType": "customtabs",
   "features": {
     "locationDelegation": { "enabled": false },
@@ -47,7 +47,7 @@
   "enableSiteSettingsShortcut": true,
   "isChromeOSOnly": false,
   "isMetaQuest": false,
-  "fullScopeUrl": "https://auto-guardian-kappa.vercel.app/",
+  "fullScopeUrl": "https://app.aidrivex.agency/",
   "minSdkVersion": 21,
   "orientation": "portrait",
   "fingerprints": [],
