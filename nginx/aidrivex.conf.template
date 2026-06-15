@@ -1,0 +1,42 @@
+# ============================================================================
+# Nginx site config for AI DriveX — installed to
+#   /etc/nginx/sites-available/aidrivex.agency
+# by deploy.sh. The ${DOMAIN} placeholder is substituted at deploy time.
+#
+# This is the HTTP-only starting point. Certbot rewrites it to add the
+# :443 TLS server block + the HTTP→HTTPS redirect automatically.
+# ============================================================================
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name ${DOMAIN} www.${DOMAIN};
+
+    # Let's Encrypt HTTP-01 challenge files are served from here.
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    # Everything else proxies to the Next.js container on localhost:3000.
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+        proxy_read_timeout 60s;
+    }
+
+    # Long-cache the immutable static assets.
+    location /_next/static/ {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_cache_valid 200 365d;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+    }
+
+    client_max_body_size 10M;
+}

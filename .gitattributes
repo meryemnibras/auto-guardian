@@ -1,0 +1,9 @@
+# Force LF line endings for files that must run on Linux, regardless of the
+# committer's OS. Without this, Windows CRLF breaks bash scripts ("\r: command
+# not found") and the Nginx config template on the VPS.
+*.sh            text eol=lf
+deploy.sh       text eol=lf
+*.template      text eol=lf
+Dockerfile      text eol=lf
+docker-compose.yml text eol=lf
+.env.production.example text eol=lf
