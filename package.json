@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "icons:android": "node scripts/generate-android-icons.mjs"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^3.0.79",
@@ -23,6 +24,8 @@
     "openai": "^6.39.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "resend": "^6.12.4",
+    "stripe": "^22.2.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
@@ -31,6 +34,7 @@
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.40",
+    "sharp": "^0.35.1",
     "tailwindcss": "^3.4.7",
     "typescript": "^5.5.0"
   }

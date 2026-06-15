@@ -6,9 +6,14 @@ import { MotionSection } from "./MotionSection";
 import { getLandingDict } from "@/lib/landingI18n";
 import { useTranslation } from "@/components/LanguageProvider";
 
-// Replace these with the real numbers/links before going live
-const WHATSAPP_NUMBER = "966500000000"; // E.164, no + and no spaces
-const CALENDLY_URL = "https://calendly.com/ai-drivex/demo";
+// Env-driven so production URLs/numbers can be swapped without a code change.
+// Set NEXT_PUBLIC_WHATSAPP_NUMBER and NEXT_PUBLIC_CALENDLY_URL in .env.local
+// (and in Vercel project env) before launch.
+const WHATSAPP_NUMBER =
+  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "966500000000";
+const CALENDLY_URL =
+  process.env.NEXT_PUBLIC_CALENDLY_URL ||
+  "https://calendly.com/ai-drivex/demo";
 
 function whatsappLink(message: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;

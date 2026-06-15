@@ -25,6 +25,7 @@ import {
 import { ORBIT_BADGES } from "@/lib/landingData";
 import { getLandingDict, type LandingDict } from "@/lib/landingI18n";
 import { useTranslation } from "@/components/LanguageProvider";
+import { WaitlistForm } from "./WaitlistForm";
 
 export function HeroSection() {
   const { language } = useTranslation();
@@ -102,11 +103,22 @@ export function HeroSection() {
             </a>
           </motion.div>
 
+          {/* Waitlist email capture */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-6 flex flex-col items-center gap-3 sm:flex-row lg:justify-start"
+            className="mx-auto mt-6 max-w-md lg:mx-0"
+          >
+            <WaitlistForm source="hero" />
+          </motion.div>
+
+          {/* Store buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mt-5 flex flex-col items-center gap-3 sm:flex-row lg:justify-start"
           >
             <a
               href="#download"

@@ -114,6 +114,7 @@ export function CheckoutPage() {
   const [terms, setTerms] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const brand = useMemo(() => detectBrand(cardNumber), [cardNumber]);
 
@@ -125,15 +126,72 @@ export function CheckoutPage() {
     /^.+@.+\..+$/.test(email) &&
     terms;
 
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (!isValid || submitting) return;
     setSubmitting(true);
-    // Demo: simulate processing
-    setTimeout(() => {
+    setErrorMsg(null);
+
+    try {
+      // Create a Stripe Checkout Session on the server. We send only the
+      // buyer info — the card details typed in the visual preview never
+      // leave the browser. Stripe collects PCI data on its own hosted page.
+      const res = await fetch("/api/checkout/create-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: name,
+          email,
+          country,
+          currency,
+          language,
+        }),
+      });
+
+      const data = (await res.json().catch(() => ({}))) as {
+        ok?: boolean;
+        error?: string;
+        url?: string;
+      };
+
+      if (res.status === 503) {
+        // Stripe not configured yet — fall back to legacy /subscribe so the
+        // demo still works locally without keys.
+        const fallback = await fetch("/api/checkout/subscribe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fullName: name,
+            email,
+            country,
+            cardNumber,
+            expiry,
+            currency,
+            language,
+          }),
+        });
+        if (fallback.ok || fallback.status === 503) {
+          setSuccess(true);
+          return;
+        }
+        throw new Error("Stripe not configured and fallback failed.");
+      }
+
+      if (!res.ok || !data.ok || !data.url) {
+        throw new Error(data.error || `HTTP ${res.status}`);
+      }
+
+      // Redirect to the secure Stripe-hosted Checkout page.
+      window.location.href = data.url;
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setErrorMsg(
+        isArabic
+          ? `حدث خطأ أثناء بدء الدفع. ${msg}`
+          : `Something went wrong starting the payment. ${msg}`
+      );
       setSubmitting(false);
-      setSuccess(true);
-    }, 1800);
+    }
   }
 
   return (
@@ -411,6 +469,17 @@ export function CheckoutPage() {
                     {dict.checkoutTerms}
                   </span>
                 </label>
+
+                {/* Error message */}
+                {errorMsg && (
+                  <div
+                    role="alert"
+                    className="flex items-start gap-2 rounded-2xl border border-rose-500/30 bg-rose-500/10 p-3 text-xs leading-relaxed text-rose-200"
+                  >
+                    <span aria-hidden className="mt-0.5">⚠️</span>
+                    <span dir="auto">{errorMsg}</span>
+                  </div>
+                )}
 
                 {/* Submit */}
                 <button

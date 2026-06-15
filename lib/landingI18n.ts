@@ -204,6 +204,19 @@ export interface LandingDict {
   checkoutTrustRefund: string;
   checkoutMoneyBack: string;
   checkoutDemoNote: string;
+
+  // Waitlist
+  waitlistTitle: string;
+  waitlistSubtitle: string;
+  waitlistEmailPlaceholder: string;
+  waitlistCta: string;
+  waitlistSending: string;
+  waitlistSuccess: string;
+  waitlistAlready: string;
+  waitlistError: string;
+  waitlistPerk1: string;
+  waitlistPerk2: string;
+  waitlistPerk3: string;
 }
 
 const ar: LandingDict = {
@@ -428,6 +441,19 @@ const ar: LandingDict = {
   checkoutMoneyBack: "ضمان استرداد كامل خلال 7 أيام — بدون أسئلة.",
   checkoutDemoNote:
     "هذه واجهة تجريبية — لن يتم تنفيذ أي عملية دفع فعلية. للربط الحقيقي استخدم Stripe أو Tap.",
+
+  waitlistTitle: "كوني أول من يصل لـ AI DriveX",
+  waitlistSubtitle:
+    "اتركي بريدك وسنرسل لكِ دعوة مبكرة + خصم 30% على أول 3 أشهر.",
+  waitlistEmailPlaceholder: "بريدك الإلكتروني",
+  waitlistCta: "احجز مكاني",
+  waitlistSending: "جارٍ الإرسال…",
+  waitlistSuccess: "✓ تم! سنبقيكِ على اطّلاع.",
+  waitlistAlready: "✓ بريدكِ مسجّل مسبقاً. سنرسل الدعوة قريباً.",
+  waitlistError: "تعذّر التسجيل. حاولي مرة أخرى.",
+  waitlistPerk1: "دعوة مبكرة",
+  waitlistPerk2: "خصم 30%",
+  waitlistPerk3: "بدون التزام",
 };
 
 const en: LandingDict = {
@@ -653,6 +679,19 @@ const en: LandingDict = {
   checkoutMoneyBack: "Full money-back guarantee within 7 days — no questions asked.",
   checkoutDemoNote:
     "This is a demo UI — no real payment will be processed. For live integration use Stripe or Tap.",
+
+  waitlistTitle: "Be first to drive with AI DriveX",
+  waitlistSubtitle:
+    "Drop your email — we'll send an early invite + 30% off your first 3 months.",
+  waitlistEmailPlaceholder: "Your email",
+  waitlistCta: "Reserve my spot",
+  waitlistSending: "Sending…",
+  waitlistSuccess: "✓ You're in! We'll keep you posted.",
+  waitlistAlready: "✓ Your email is already on the list. Invite coming soon.",
+  waitlistError: "Couldn't sign you up. Please try again.",
+  waitlistPerk1: "Early invite",
+  waitlistPerk2: "30% off",
+  waitlistPerk3: "No commitment",
 };
 
 const DICTS: Record<LandingLang, LandingDict> = { ar, en };
