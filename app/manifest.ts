@@ -78,6 +78,12 @@ export default function manifest(): ExtendedManifest {
     /** App shortcuts shown on long-press of the Android launcher icon. */
     shortcuts: [
       {
+        name: "المحادثة الذكية",
+        short_name: "Chat",
+        url: "/chat",
+        description: "اسأل المساعد الذكي عن سيارتك",
+      },
+      {
         name: "الفحص",
         short_name: "Diagnostics",
         url: "/diagnostics",

@@ -18,6 +18,19 @@ import type {
 
 const BUNDLE = translations as TranslationsBundle;
 const DEFAULT_LANGUAGE: SupportedLanguage = "en";
+const STORAGE_KEY = "aidrivex-lang";
+const SUPPORTED: readonly SupportedLanguage[] = ["ar", "en", "fr"];
+
+function readStoredLanguage(): SupportedLanguage | null {
+  try {
+    const v = localStorage.getItem(STORAGE_KEY);
+    return v && SUPPORTED.includes(v as SupportedLanguage)
+      ? (v as SupportedLanguage)
+      : null;
+  } catch {
+    return null;
+  }
+}
 
 interface LanguageContextValue {
   language: SupportedLanguage;
@@ -43,10 +56,23 @@ function directionFor(lang: SupportedLanguage): Direction {
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   // Start with the same value the server rendered to avoid hydration mismatch;
   // the real language is applied after mount via the effect below.
-  const [language, setLanguage] = useState<SupportedLanguage>(DEFAULT_LANGUAGE);
+  const [language, setLanguageState] = useState<SupportedLanguage>(
+    DEFAULT_LANGUAGE
+  );
 
+  // After mount: a saved choice wins; otherwise fall back to the browser.
   useEffect(() => {
-    setLanguage(detectBrowserLanguage());
+    setLanguageState(readStoredLanguage() ?? detectBrowserLanguage());
+  }, []);
+
+  // Persist explicit user choices so the language survives reloads.
+  const setLanguage = useCallback((lang: SupportedLanguage) => {
+    setLanguageState(lang);
+    try {
+      localStorage.setItem(STORAGE_KEY, lang);
+    } catch {
+      /* storage unavailable (private mode) — ignore */
+    }
   }, []);
 
   useEffect(() => {

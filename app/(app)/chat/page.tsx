@@ -46,13 +46,11 @@ export default function ChatPage() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [provider, setProvider] = useState<string | null>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+    bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages]);
 
   useEffect(() => {
@@ -173,14 +171,14 @@ export default function ChatPage() {
   const isEmpty = messages.length === 0;
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-3xl flex-col px-4 pt-16 pb-32 sm:px-6">
-      <header className="mb-6 flex items-center justify-between gap-3">
+    <div className="flex flex-1 flex-col">
+      <header className="mb-5 flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <span className="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 text-white shadow-[0_8px_24px_-8px_rgba(99,102,241,0.55)]">
             <Sparkles className="h-5 w-5" aria-hidden />
           </span>
           <div>
-            <h1 className="flex items-center gap-2 text-xl font-extrabold tracking-tight text-slate-100">
+            <h1 className="flex items-center gap-2 text-lg font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
               AI DriveX Chat
               <span className="rounded-full border border-amber-400/40 bg-amber-400/10 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-amber-300">
                 Beta
@@ -225,22 +223,17 @@ export default function ChatPage() {
         )}
       </header>
 
-      <div
-        ref={scrollRef}
-        className="flex-1 space-y-4 overflow-y-auto pb-4"
-        aria-live="polite"
-      >
+      {/* Messages flow with normal page scroll; the fixed input bar below sits
+          just above the bottom navigation, so we pad the list to clear it. */}
+      <div className="flex-1 space-y-4 pb-44" aria-live="polite">
         {isEmpty && (
           <div className="space-y-4">
-            <div className="rounded-3xl border border-slate-800 bg-slate-900/60 p-6 text-center backdrop-blur">
-              <Bot
-                className="mx-auto h-10 w-10 text-blue-400"
-                aria-hidden
-              />
-              <h2 className="mt-3 text-lg font-semibold text-slate-100">
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900/60 dark:shadow-none dark:backdrop-blur">
+              <Bot className="mx-auto h-10 w-10 text-blue-500 dark:text-blue-400" aria-hidden />
+              <h2 className="mt-3 text-lg font-semibold text-slate-800 dark:text-slate-100">
                 مرحباً بك في مساعد AI DriveX
               </h2>
-              <p className="mt-1 text-sm text-slate-400">
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                 اسألني عن سيارتك، الصيانة، أكواد الأعطال، أو أي شيء يخص القيادة.
               </p>
             </div>
@@ -250,7 +243,7 @@ export default function ChatPage() {
                   key={s}
                   type="button"
                   onClick={() => void sendMessage(s)}
-                  className="rounded-2xl border border-slate-800 bg-slate-900/40 p-3 text-start text-sm text-slate-200 transition-all hover:border-blue-500/40 hover:bg-slate-900/70 active:scale-[0.98]"
+                  className="rounded-2xl border border-slate-200 bg-white p-3 text-start text-sm text-slate-700 shadow-sm transition-all hover:border-blue-500/40 hover:bg-slate-50 active:scale-[0.98] dark:border-slate-800 dark:bg-slate-900/40 dark:text-slate-200 dark:shadow-none dark:hover:bg-slate-900/70"
                 >
                   {s}
                 </button>
@@ -272,11 +265,13 @@ export default function ChatPage() {
             <span dir="auto">{error}</span>
           </div>
         )}
+
+        <div ref={bottomRef} />
       </div>
 
       <form
         onSubmit={onSubmit}
-        className="fixed inset-x-0 bottom-0 z-20 mx-auto w-full max-w-3xl border-t border-slate-800 bg-slate-950/95 px-4 py-3 backdrop-blur sm:px-6"
+        className="fixed inset-x-0 bottom-[72px] z-30 mx-auto w-full max-w-md border-t border-slate-200 bg-white/95 px-4 py-3 backdrop-blur dark:border-slate-800 dark:bg-gray-950/95"
       >
         <div className="flex items-end gap-2">
           <textarea
@@ -287,7 +282,7 @@ export default function ChatPage() {
             rows={1}
             dir="auto"
             disabled={isStreaming}
-            className="max-h-40 min-h-[48px] flex-1 resize-none rounded-2xl border border-slate-800 bg-slate-900 px-4 py-3 text-sm text-slate-100 placeholder-slate-500 outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 disabled:opacity-60"
+            className="max-h-40 min-h-[48px] flex-1 resize-none rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 disabled:opacity-60 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder-slate-500"
           />
           <button
             type="submit"
@@ -304,7 +299,7 @@ export default function ChatPage() {
         </div>
         <p className="mt-2 text-center text-[10px] leading-relaxed text-slate-500">
           نسخة تجريبية (Beta) — الإجابات إرشادية بمساعدة الذكاء الاصطناعي ولا
-          تُغني عن فحص فنّي صيانة معتمد.
+          تُغني عن فحص فنّي معتمد.
         </p>
       </form>
     </div>
@@ -322,9 +317,7 @@ function MessageBubble({
   const showCursor = !isUser && isStreaming && message.content.length === 0;
 
   return (
-    <div
-      className={`flex gap-3 ${isUser ? "flex-row-reverse" : "flex-row"}`}
-    >
+    <div className={`flex gap-3 ${isUser ? "flex-row-reverse" : "flex-row"}`}>
       <span
         className={`grid h-8 w-8 shrink-0 place-items-center rounded-xl ${
           isUser
@@ -333,18 +326,14 @@ function MessageBubble({
         }`}
         aria-hidden
       >
-        {isUser ? (
-          <UserIcon className="h-4 w-4" />
-        ) : (
-          <Bot className="h-4 w-4" />
-        )}
+        {isUser ? <UserIcon className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
       </span>
       <div
         dir="auto"
         className={`max-w-[85%] whitespace-pre-wrap rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
           isUser
-            ? "bg-blue-600/90 text-white"
-            : "border border-slate-800 bg-slate-900/70 text-slate-100"
+            ? "bg-blue-600 text-white"
+            : "border border-slate-200 bg-white text-slate-800 shadow-sm dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-100 dark:shadow-none"
         }`}
       >
         {message.content}

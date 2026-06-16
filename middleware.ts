@@ -15,14 +15,29 @@ import type { NextRequest } from "next/server";
  * domain.
  */
 
-// App-only sections. The chat lives at "/" and is handled by the root rule.
-const APP_PREFIXES = ["/diagnostics", "/wallet", "/emergency", "/settings"];
+// App-only sections. The home dashboard lives at "/" on the app subdomain;
+// the chat now has its own /chat route.
+const APP_PREFIXES = [
+  "/chat",
+  "/diagnostics",
+  "/wallet",
+  "/emergency",
+  "/settings",
+];
 
 export function middleware(request: NextRequest) {
   const host = (request.headers.get("host") || "").toLowerCase();
-  const isAppHost = host.startsWith("app.");
   const url = request.nextUrl;
   const path = url.pathname;
+
+  // Local development: there's no real domain split on localhost, so serve the
+  // full app as-is (home at "/", chat at "/chat", …). Production hosts are real
+  // domains and never match this, so the marketing/app split below still holds.
+  if (host.startsWith("localhost") || host.startsWith("127.0.0.1")) {
+    return NextResponse.next();
+  }
+
+  const isAppHost = host.startsWith("app.");
 
   // Base domain with any app./www. prefix stripped (e.g. "aidrivex.agency").
   const baseHost = host.replace(/^app\./, "").replace(/^www\./, "");
