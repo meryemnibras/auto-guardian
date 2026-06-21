@@ -53,8 +53,8 @@ const SEVERITY_META: Record<
   },
   unknown: {
     Icon: AlertCircle,
-    tone: "text-gray-400",
-    chipBg: "bg-gray-500/15 text-gray-300 border-gray-500/30",
+    tone: "text-slate-600 dark:text-gray-400",
+    chipBg: "bg-gray-500/15 text-slate-700 dark:text-gray-300 border-gray-500/30",
     labelKey: "diagHistoryUnknown",
   },
 };
@@ -135,20 +135,20 @@ export function DiagnosticsHistory({ refreshKey }: DiagnosticsHistoryProps) {
   const visible = filtered.slice(0, VISIBLE_LIMIT);
 
   return (
-    <section className="space-y-3 rounded-2xl border border-gray-800 bg-gray-900/60 p-5 shadow-lg">
+    <section className="space-y-3 rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-5 shadow-lg">
       <header className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <History className="h-5 w-5 text-blue-300" aria-hidden />
-          <h2 className="text-lg font-semibold text-gray-100">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-gray-100">
             {t("diagHistoryTitle")}
           </h2>
-          <span className="rounded-full border border-gray-800 bg-gray-950 px-2 py-0.5 text-[11px] text-gray-400">
+          <span className="rounded-full border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-950 px-2 py-0.5 text-[11px] text-slate-600 dark:text-gray-400">
             {items.length}
           </span>
         </div>
 
-        <div className="flex items-center gap-1 rounded-xl border border-gray-800 bg-gray-950 p-1">
-          <Filter className="ms-1 h-3 w-3 text-gray-500" aria-hidden />
+        <div className="flex items-center gap-1 rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-950 p-1">
+          <Filter className="ms-1 h-3 w-3 text-slate-600 dark:text-gray-500" aria-hidden />
           {FILTER_OPTIONS.map((opt) => {
             const active = filter === opt.value;
             return (
@@ -160,7 +160,7 @@ export function DiagnosticsHistory({ refreshKey }: DiagnosticsHistoryProps) {
                 className={`rounded-lg px-2 py-1 text-[10px] font-medium transition-colors ${
                   active
                     ? "bg-blue-500/20 text-blue-200"
-                    : "text-gray-400 hover:text-gray-200"
+                    : "text-slate-600 dark:text-gray-400 hover:text-gray-200"
                 }`}
               >
                 {t(opt.labelKey)}
@@ -170,17 +170,17 @@ export function DiagnosticsHistory({ refreshKey }: DiagnosticsHistoryProps) {
         </div>
       </header>
 
-      <p className="text-xs text-gray-400">{t("diagHistoryIntro")}</p>
+      <p className="text-xs text-slate-600 dark:text-gray-400">{t("diagHistoryIntro")}</p>
 
       {loading && (
-        <div className="flex items-center gap-2 text-xs text-gray-400">
+        <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-gray-400">
           <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
           {t("loadingTransactions")}
         </div>
       )}
 
       {!loading && filtered.length === 0 && (
-        <div className="rounded-2xl border border-dashed border-gray-800 px-4 py-6 text-center text-sm text-gray-500">
+        <div className="rounded-2xl border border-dashed border-slate-200 dark:border-gray-800 px-4 py-6 text-center text-sm text-slate-600 dark:text-gray-500">
           {items.length === 0
             ? t("diagHistoryEmpty")
             : t("diagHistoryFilterEmpty")}
@@ -194,16 +194,16 @@ export function DiagnosticsHistory({ refreshKey }: DiagnosticsHistoryProps) {
           return (
             <li
               key={d.id}
-              className="flex items-start gap-3 rounded-2xl border border-gray-800 bg-gray-950/50 p-3"
+              className="flex items-start gap-3 rounded-2xl border border-slate-200 dark:border-gray-800 bg-gray-950/50 p-3"
             >
-              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gray-900">
+              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-slate-100 dark:bg-gray-900">
                 <Icon className={`h-4 w-4 ${meta.tone}`} aria-hidden />
               </span>
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
                   <span
                     dir="auto"
-                    className="text-sm font-semibold text-gray-100"
+                    className="text-sm font-semibold text-slate-900 dark:text-gray-100"
                   >
                     {d.title}
                   </span>
@@ -213,7 +213,7 @@ export function DiagnosticsHistory({ refreshKey }: DiagnosticsHistoryProps) {
                     {t(meta.labelKey)}
                   </span>
                 </div>
-                <div className="mt-1 text-[10px] text-gray-500">
+                <div className="mt-1 text-[10px] text-slate-600 dark:text-gray-500">
                   {formatter.format(new Date(d.date))}
                 </div>
               </div>
@@ -221,7 +221,7 @@ export function DiagnosticsHistory({ refreshKey }: DiagnosticsHistoryProps) {
                 type="button"
                 onClick={() => onDelete(d.id)}
                 aria-label={t("deleteAction")}
-                className="rounded-lg p-1.5 text-gray-500 transition-colors hover:bg-rose-500/10 hover:text-rose-300 active:scale-95"
+                className="rounded-lg p-1.5 text-slate-600 dark:text-gray-500 transition-colors hover:bg-rose-500/10 hover:text-rose-300 active:scale-95"
               >
                 <Trash2 className="h-3.5 w-3.5" aria-hidden />
               </button>
@@ -231,7 +231,7 @@ export function DiagnosticsHistory({ refreshKey }: DiagnosticsHistoryProps) {
       </ul>
 
       {filtered.length > VISIBLE_LIMIT && (
-        <div className="text-center text-[10px] text-gray-500">
+        <div className="text-center text-[10px] text-slate-600 dark:text-gray-500">
           {t("diagHistoryLimited").replace(
             "{count}",
             String(filtered.length - VISIBLE_LIMIT)

@@ -21,7 +21,7 @@ export function AnimatedWaveform({ active, bars = 28 }: AnimatedWaveformProps) {
     <div
       role="img"
       aria-label={active ? "Recording waveform" : "Idle waveform"}
-      className="flex h-24 w-full items-end justify-center gap-1.5 overflow-hidden rounded-2xl border border-gray-800 bg-gray-950/60 px-4 py-3 shadow-inner"
+      className="flex h-24 w-full items-end justify-center gap-1.5 overflow-hidden rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950/60 px-4 py-3 shadow-inner"
     >
       {Array.from({ length: bars }, (_, i) => (
         <motion.div

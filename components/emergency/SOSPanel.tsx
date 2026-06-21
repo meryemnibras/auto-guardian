@@ -86,14 +86,14 @@ export function SOSPanel({ parking }: SOSPanelProps) {
     <section className="space-y-4 rounded-3xl border border-rose-500/30 bg-gradient-to-br from-rose-950/40 to-gray-950/70 p-5 shadow-[0_18px_50px_-18px_rgba(244,63,94,0.45)] backdrop-blur">
       <header className="flex items-center gap-2">
         <Siren className="h-5 w-5 text-rose-300" aria-hidden />
-        <h2 className="text-lg font-semibold text-gray-100">
+        <h2 className="text-lg font-semibold text-slate-900 dark:text-gray-100">
           {t("sosPanelTitle")}
         </h2>
       </header>
-      <p className="text-xs text-gray-400">{t("sosPanelIntro")}</p>
+      <p className="text-xs text-slate-600 dark:text-gray-400">{t("sosPanelIntro")}</p>
 
-      <div className="flex items-center justify-between rounded-2xl border border-gray-800 bg-gray-950/60 px-4 py-3 text-sm">
-        <div className="flex items-center gap-2 text-gray-300">
+      <div className="flex items-center justify-between rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950/60 px-4 py-3 text-sm">
+        <div className="flex items-center gap-2 text-slate-700 dark:text-gray-300">
           {isUnsupported || isDenied ? (
             <ShieldOff className="h-4 w-4 text-rose-400" aria-hidden />
           ) : shake.isListening ? (
@@ -105,7 +105,7 @@ export function SOSPanel({ parking }: SOSPanelProps) {
           )}
           <span>{t("motionSensorStatus")}</span>
         </div>
-        <span className="text-xs text-gray-400">
+        <span className="text-xs text-slate-600 dark:text-gray-400">
           {shake.isListening ? t("motionListening") : t(STATUS_LABEL[shake.permissionStatus])}
         </span>
       </div>

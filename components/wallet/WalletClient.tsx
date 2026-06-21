@@ -27,11 +27,11 @@ export function WalletClient() {
   return (
     <section className="flex flex-1 flex-col gap-5">
       <header className="space-y-2">
-        <h1 className="flex items-center gap-2 text-3xl font-extrabold tracking-tight text-gray-100">
+        <h1 className="flex items-center gap-2 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-gray-100">
           <WalletIcon className="h-7 w-7 text-blue-300" aria-hidden />
           {t("smartWallet")}
         </h1>
-        <p className="text-sm text-gray-400">{t("walletIntro")}</p>
+        <p className="text-sm text-slate-600 dark:text-gray-400">{t("walletIntro")}</p>
       </header>
 
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">

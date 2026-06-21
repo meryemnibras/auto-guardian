@@ -77,10 +77,10 @@ export function ExpenseForm({ scannedAmount, onSaved }: ExpenseFormProps) {
   return (
     <form
       onSubmit={onSubmit}
-      className="space-y-4 rounded-3xl border border-gray-800 bg-gray-950/70 p-5 shadow-lg backdrop-blur"
+      className="space-y-4 rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950/70 p-5 shadow-lg backdrop-blur"
     >
       <label className="block">
-        <span className="text-xs text-gray-400">{t("amountLabel")}</span>
+        <span className="text-xs text-slate-600 dark:text-gray-400">{t("amountLabel")}</span>
         <input
           type="number"
           inputMode="decimal"
@@ -90,17 +90,17 @@ export function ExpenseForm({ scannedAmount, onSaved }: ExpenseFormProps) {
           onChange={(e) => setAmount(e.target.value)}
           placeholder="0.00"
           required
-          className="mt-1 h-12 w-full rounded-2xl border border-gray-800 bg-gray-950 px-4 text-lg font-semibold text-gray-100 outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
+          className="mt-1 h-12 w-full rounded-2xl border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-950 px-4 text-lg font-semibold text-slate-900 dark:text-gray-100 outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
         />
       </label>
 
       <div className="grid grid-cols-2 gap-3">
         <label className="block">
-          <span className="text-xs text-gray-400">{t("categoryLabel")}</span>
+          <span className="text-xs text-slate-600 dark:text-gray-400">{t("categoryLabel")}</span>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value as ExpenseCategory)}
-            className="mt-1 h-12 w-full rounded-2xl border border-gray-800 bg-gray-950 px-3 text-sm text-gray-100 outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
+            className="mt-1 h-12 w-full rounded-2xl border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-950 px-3 text-sm text-slate-900 dark:text-gray-100 outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
           >
             {EXPENSE_CATEGORIES.map((c) => (
               <option key={c} value={c}>
@@ -111,13 +111,13 @@ export function ExpenseForm({ scannedAmount, onSaved }: ExpenseFormProps) {
         </label>
 
         <label className="block">
-          <span className="text-xs text-gray-400">{t("dateLabel")}</span>
+          <span className="text-xs text-slate-600 dark:text-gray-400">{t("dateLabel")}</span>
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
             required
-            className="mt-1 h-12 w-full rounded-2xl border border-gray-800 bg-gray-950 px-3 text-sm text-gray-100 outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
+            className="mt-1 h-12 w-full rounded-2xl border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-950 px-3 text-sm text-slate-900 dark:text-gray-100 outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
           />
         </label>
       </div>

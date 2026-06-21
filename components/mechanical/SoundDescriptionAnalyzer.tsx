@@ -88,14 +88,14 @@ export function SoundDescriptionAnalyzer({
   const remaining = MAX_LEN - description.length;
 
   return (
-    <section className="space-y-4 rounded-2xl border border-gray-800 bg-gray-900/60 p-5 shadow-lg">
+    <section className="space-y-4 rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-5 shadow-lg">
       <header className="flex items-start gap-2">
         <Ear className="mt-0.5 h-5 w-5 text-cyan-300" aria-hidden />
         <div>
-          <h2 className="text-lg font-semibold text-gray-100">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-gray-100">
             {t("soundDescTitle")}
           </h2>
-          <p className="mt-0.5 text-xs text-gray-400">{t("soundDescIntro")}</p>
+          <p className="mt-0.5 text-xs text-slate-600 dark:text-gray-400">{t("soundDescIntro")}</p>
         </div>
       </header>
 
@@ -108,10 +108,10 @@ export function SoundDescriptionAnalyzer({
             placeholder={t("soundDescPlaceholder")}
             rows={4}
             dir="auto"
-            className="w-full resize-none rounded-xl border border-gray-800 bg-gray-950 px-3 py-2.5 text-sm text-gray-100 placeholder-gray-500 outline-none transition-colors focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/30"
+            className="w-full resize-none rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-950 px-3 py-2.5 text-sm text-slate-900 dark:text-gray-100 placeholder-gray-500 outline-none transition-colors focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/30"
           />
         </label>
-        <div className="flex items-center justify-between text-[11px] text-gray-500">
+        <div className="flex items-center justify-between text-[11px] text-slate-600 dark:text-gray-500">
           <span>
             {description.length}/{MAX_LEN}
           </span>

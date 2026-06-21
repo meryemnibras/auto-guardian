@@ -83,7 +83,7 @@ export function CircularProgressCard({
 
   return (
     <div
-      className={`group flex flex-col items-center gap-3 rounded-3xl border border-gray-800 bg-gray-950/70 p-4 ring-1 ${style.ring} backdrop-blur transition-all active:scale-[0.98]`}
+      className={`group flex flex-col items-center gap-3 rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950/70 p-4 ring-1 ${style.ring} backdrop-blur transition-all active:scale-[0.98]`}
     >
       <div className="relative h-24 w-24 sm:h-28 sm:w-28">
         <svg
@@ -128,7 +128,7 @@ export function CircularProgressCard({
               >
                 {Math.round(remainingKm).toLocaleString()}
               </span>
-              <span className="mt-1 text-[9px] uppercase tracking-wider text-gray-500">
+              <span className="mt-1 text-[9px] uppercase tracking-wider text-slate-600 dark:text-gray-500">
                 {t("kmUnit")}
               </span>
             </>
@@ -137,7 +137,7 @@ export function CircularProgressCard({
       </div>
 
       <div className="w-full min-w-0 text-center">
-        <div className="truncate text-sm font-semibold text-gray-100">
+        <div className="truncate text-sm font-semibold text-slate-900 dark:text-gray-100">
           {title}
         </div>
         <div className="mt-1.5 flex items-center justify-center gap-1">
@@ -155,7 +155,7 @@ export function CircularProgressCard({
               {Math.round(progress)}%
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1 text-[10px] text-gray-500">
+            <span className="inline-flex items-center gap-1 text-[10px] text-slate-600 dark:text-gray-500">
               <CheckCircle2 className="h-2.5 w-2.5" aria-hidden />
               {Math.round(progress)}%
             </span>

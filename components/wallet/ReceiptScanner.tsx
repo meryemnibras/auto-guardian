@@ -48,7 +48,7 @@ export function ReceiptScanner({ onAmountExtracted }: ReceiptScannerProps) {
   const scanning = state.kind === "scanning";
 
   return (
-    <section className="space-y-3 rounded-3xl border border-gray-800 bg-gray-950/70 p-5 shadow-lg backdrop-blur">
+    <section className="space-y-3 rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950/70 p-5 shadow-lg backdrop-blur">
       <input
         ref={inputRef}
         type="file"
@@ -78,7 +78,7 @@ export function ReceiptScanner({ onAmountExtracted }: ReceiptScannerProps) {
         )}
       </button>
 
-      <p className="text-[11px] text-gray-500">{t("manualEntryHint")}</p>
+      <p className="text-[11px] text-slate-600 dark:text-gray-500">{t("manualEntryHint")}</p>
 
       {state.kind === "success" && (
         <div className="space-y-2 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-xs text-emerald-200">

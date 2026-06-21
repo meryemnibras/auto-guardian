@@ -105,12 +105,12 @@ export function AuthPanel() {
   // --- Cloud not configured -------------------------------------------------
   if (!configured) {
     return (
-      <section className="rounded-2xl border border-white/10 bg-slate-900/60 p-5">
-        <div className="flex items-center gap-2 text-slate-200">
+      <section className="rounded-2xl border border-white/10 bg-white dark:bg-slate-900/60 p-5">
+        <div className="flex items-center gap-2 text-slate-800 dark:text-slate-200">
           <CloudOff className="h-5 w-5 text-amber-400" aria-hidden />
           <h2 className="text-base font-semibold">{t.title}</h2>
         </div>
-        <p className="mt-3 text-sm leading-relaxed text-slate-400">
+        <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
           {t.notConfigured}
         </p>
       </section>
@@ -120,8 +120,8 @@ export function AuthPanel() {
   // --- Loading initial session ---------------------------------------------
   if (!ready) {
     return (
-      <section className="rounded-2xl border border-white/10 bg-slate-900/60 p-5">
-        <div className="flex items-center gap-2 text-slate-400">
+      <section className="rounded-2xl border border-white/10 bg-white dark:bg-slate-900/60 p-5">
+        <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
           <RefreshCw className="h-4 w-4 animate-spin" aria-hidden />
           <span className="text-sm">{t.working}</span>
         </div>
@@ -135,8 +135,8 @@ export function AuthPanel() {
       ? new Date(lastSyncedAt).toLocaleString()
       : t.never;
     return (
-      <section className="rounded-2xl border border-white/10 bg-slate-900/60 p-5">
-        <div className="flex items-center gap-2 text-slate-200">
+      <section className="rounded-2xl border border-white/10 bg-white dark:bg-slate-900/60 p-5">
+        <div className="flex items-center gap-2 text-slate-800 dark:text-slate-200">
           <ShieldCheck className="h-5 w-5 text-emerald-400" aria-hidden />
           <h2 className="text-base font-semibold">{t.title}</h2>
         </div>
@@ -144,14 +144,14 @@ export function AuthPanel() {
         <div className="mt-4 flex items-center gap-3 rounded-xl bg-white/5 p-3">
           <Mail className="h-4 w-4 shrink-0 text-sky-400" aria-hidden />
           <div className="min-w-0">
-            <p className="text-xs text-slate-400">{t.signedInAs}</p>
-            <p className="truncate text-sm font-medium text-slate-100">
+            <p className="text-xs text-slate-600 dark:text-slate-400">{t.signedInAs}</p>
+            <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">
               {user.email}
             </p>
           </div>
         </div>
 
-        <div className="mt-3 flex items-center justify-between text-xs text-slate-400">
+        <div className="mt-3 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
           <span>
             {t.lastSync}: {lastSyncLabel}
           </span>
@@ -179,14 +179,14 @@ export function AuthPanel() {
           <button
             type="button"
             onClick={() => void signOut()}
-            className="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-medium text-slate-200 transition hover:bg-white/10"
+            className="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-medium text-slate-800 dark:text-slate-200 transition hover:bg-white/10"
           >
             <LogOut className="h-4 w-4" aria-hidden />
             {t.signOut}
           </button>
         </div>
 
-        <p className="mt-3 text-xs leading-relaxed text-slate-500">{t.secure}</p>
+        <p className="mt-3 text-xs leading-relaxed text-slate-600 dark:text-slate-500">{t.secure}</p>
       </section>
     );
   }
@@ -216,28 +216,28 @@ export function AuthPanel() {
   };
 
   return (
-    <section className="rounded-2xl border border-white/10 bg-slate-900/60 p-5">
-      <div className="flex items-center gap-2 text-slate-200">
+    <section className="rounded-2xl border border-white/10 bg-white dark:bg-slate-900/60 p-5">
+      <div className="flex items-center gap-2 text-slate-800 dark:text-slate-200">
         <ShieldCheck className="h-5 w-5 text-sky-400" aria-hidden />
         <h2 className="text-base font-semibold">{t.title}</h2>
       </div>
 
       <form onSubmit={onSubmit} className="mt-4 space-y-3">
         <div>
-          <label className="mb-1 block text-xs text-slate-400">{t.email}</label>
+          <label className="mb-1 block text-xs text-slate-600 dark:text-slate-400">{t.email}</label>
           <input
             type="email"
             required
             autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-xl border border-white/10 bg-slate-950/60 px-3 py-2.5 text-sm text-slate-100 outline-none transition focus:border-sky-500/60"
+            className="w-full rounded-xl border border-white/10 bg-white dark:bg-slate-950/60 px-3 py-2.5 text-sm text-slate-900 dark:text-slate-100 outline-none transition focus:border-sky-500/60"
             placeholder="you@example.com"
             dir="ltr"
           />
         </div>
         <div>
-          <label className="mb-1 block text-xs text-slate-400">
+          <label className="mb-1 block text-xs text-slate-600 dark:text-slate-400">
             {t.password}
           </label>
           <input
@@ -247,7 +247,7 @@ export function AuthPanel() {
             autoComplete={mode === "signup" ? "new-password" : "current-password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-xl border border-white/10 bg-slate-950/60 px-3 py-2.5 text-sm text-slate-100 outline-none transition focus:border-sky-500/60"
+            className="w-full rounded-xl border border-white/10 bg-white dark:bg-slate-950/60 px-3 py-2.5 text-sm text-slate-900 dark:text-slate-100 outline-none transition focus:border-sky-500/60"
             placeholder="••••••••"
             dir="ltr"
           />
@@ -290,7 +290,7 @@ export function AuthPanel() {
         {mode === "login" ? t.noAccount : t.haveAccount}
       </button>
 
-      <p className="mt-3 text-xs leading-relaxed text-slate-500">{t.secure}</p>
+      <p className="mt-3 text-xs leading-relaxed text-slate-600 dark:text-slate-500">{t.secure}</p>
     </section>
   );
 }

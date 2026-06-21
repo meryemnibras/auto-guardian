@@ -120,14 +120,14 @@ export function ParkingLocationCard({
   });
 
   return (
-    <section className="space-y-4 rounded-3xl border border-gray-800 bg-gray-950/70 p-5 shadow-lg backdrop-blur">
+    <section className="space-y-4 rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950/70 p-5 shadow-lg backdrop-blur">
       <header className="flex items-center gap-2">
         <MapPin className="h-5 w-5 text-emerald-300" aria-hidden />
-        <h2 className="text-lg font-semibold text-gray-100">
+        <h2 className="text-lg font-semibold text-slate-900 dark:text-gray-100">
           {t("parkingTitle")}
         </h2>
       </header>
-      <p className="text-xs text-gray-400">{t("parkingIntro")}</p>
+      <p className="text-xs text-slate-600 dark:text-gray-400">{t("parkingIntro")}</p>
 
       <button
         type="button"
@@ -166,7 +166,7 @@ export function ParkingLocationCard({
             <span>{t("savedAtLabel")}</span>
             <span>{formatter.format(new Date(latest.timestamp))}</span>
           </div>
-          <div className="text-sm font-semibold text-gray-100">
+          <div className="text-sm font-semibold text-slate-900 dark:text-gray-100">
             {latest.lat.toFixed(5)}, {latest.lng.toFixed(5)}
           </div>
           <div className="flex flex-wrap gap-2">
@@ -174,7 +174,7 @@ export function ParkingLocationCard({
               href={createMapsLink(latest)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 rounded-xl border border-gray-800 bg-gray-900 px-3 py-1.5 text-xs text-gray-200 transition-colors hover:border-blue-500 hover:text-blue-300 active:scale-95"
+              className="inline-flex items-center gap-1 rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-900 px-3 py-1.5 text-xs text-slate-800 dark:text-gray-200 transition-colors hover:border-blue-500 hover:text-blue-300 active:scale-95"
             >
               <ExternalLink className="h-3.5 w-3.5" aria-hidden />
               {t("openInMaps")}
@@ -182,7 +182,7 @@ export function ParkingLocationCard({
             <button
               type="button"
               onClick={onCopy}
-              className="inline-flex items-center gap-1 rounded-xl border border-gray-800 bg-gray-900 px-3 py-1.5 text-xs text-gray-200 transition-colors hover:border-blue-500 hover:text-blue-300 active:scale-95"
+              className="inline-flex items-center gap-1 rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-900 px-3 py-1.5 text-xs text-slate-800 dark:text-gray-200 transition-colors hover:border-blue-500 hover:text-blue-300 active:scale-95"
             >
               {copied ? (
                 <>
@@ -199,7 +199,7 @@ export function ParkingLocationCard({
             <button
               type="button"
               onClick={onDelete}
-              className="ml-auto inline-flex items-center gap-1 rounded-xl border border-gray-800 bg-gray-900 px-3 py-1.5 text-xs text-gray-400 transition-colors hover:border-rose-500 hover:text-rose-300 active:scale-95"
+              className="ml-auto inline-flex items-center gap-1 rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-900 px-3 py-1.5 text-xs text-slate-600 dark:text-gray-400 transition-colors hover:border-rose-500 hover:text-rose-300 active:scale-95"
             >
               <Trash2 className="h-3.5 w-3.5" aria-hidden />
               {t("deleteSavedLocation")}

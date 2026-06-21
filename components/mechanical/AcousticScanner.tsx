@@ -214,17 +214,17 @@ export function AcousticScanner({ onSaved }: AcousticScannerProps = {}) {
     status === "requesting-permission" || status === "analyzing";
 
   return (
-    <section className="space-y-4 rounded-2xl border border-gray-800 bg-gray-900/60 p-5 shadow-lg">
+    <section className="space-y-4 rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-5 shadow-lg">
       <header className="space-y-1">
-        <h2 className="text-lg font-semibold text-gray-100">
+        <h2 className="text-lg font-semibold text-slate-900 dark:text-gray-100">
           {t("acousticScanner")}
         </h2>
-        <p className="text-xs text-gray-400">{t("acousticIntro")}</p>
+        <p className="text-xs text-slate-600 dark:text-gray-400">{t("acousticIntro")}</p>
       </header>
 
       <AnimatedWaveform active={status === "recording"} />
 
-      <div className="flex items-center gap-2 text-sm text-gray-300">
+      <div className="flex items-center gap-2 text-sm text-slate-700 dark:text-gray-300">
         <StatusIcon
           className={`h-4 w-4 ${spinIcon ? "animate-spin" : ""} ${
             status === "error" ? "text-rose-400" : "text-blue-400"

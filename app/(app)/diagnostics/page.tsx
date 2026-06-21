@@ -19,7 +19,7 @@ export default function DiagnosticsPage() {
   return (
     <section className="flex flex-1 flex-col gap-6">
       <header className="space-y-3">
-        <h1 className="text-3xl font-extrabold tracking-tight text-gray-100">
+        <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-gray-100">
           {t("mechanicalIntelligence")}
         </h1>
         <p className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs text-blue-200">

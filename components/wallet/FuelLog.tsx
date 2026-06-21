@@ -171,22 +171,22 @@ export function FuelLog({ refreshKey, onSaved }: FuelLogProps) {
   const visible = sortedDesc.slice(0, 8);
 
   return (
-    <section className="space-y-4 rounded-3xl border border-gray-800 bg-gray-950/70 p-5 shadow-lg backdrop-blur">
+    <section className="space-y-4 rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950/70 p-5 shadow-lg backdrop-blur">
       <header className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <Fuel className="h-5 w-5 text-orange-300" aria-hidden />
-          <h2 className="text-lg font-semibold text-gray-100">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-gray-100">
             {t("fuelLogTitle")}
           </h2>
         </div>
-        <span className="rounded-full border border-gray-800 bg-gray-900 px-2 py-0.5 text-[11px] text-gray-400">
+        <span className="rounded-full border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-900 px-2 py-0.5 text-[11px] text-slate-600 dark:text-gray-400">
           {entries.length}
         </span>
       </header>
-      <p className="text-xs text-gray-400">{t("fuelLogIntro")}</p>
+      <p className="text-xs text-slate-600 dark:text-gray-400">{t("fuelLogIntro")}</p>
 
       {/* Efficiency summary */}
-      <div className="grid grid-cols-2 gap-2 rounded-2xl border border-gray-800 bg-gray-900/40 p-3 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-2 rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/40 p-3 sm:grid-cols-4">
         <MetricCell
           icon={GaugeIcon}
           label={t("efficiencyLabel")}
@@ -235,7 +235,7 @@ export function FuelLog({ refreshKey, onSaved }: FuelLogProps) {
       <form onSubmit={onSubmit} className="space-y-2">
         <div className="grid grid-cols-3 gap-2">
           <label className="block">
-            <span className="text-[11px] text-gray-400">
+            <span className="text-[11px] text-slate-600 dark:text-gray-400">
               {t("odometerKmLabel")}
             </span>
             <input
@@ -247,11 +247,11 @@ export function FuelLog({ refreshKey, onSaved }: FuelLogProps) {
               onChange={(e) => setOdometer(e.target.value)}
               placeholder="38800"
               required
-              className="mt-1 h-11 w-full rounded-xl border border-gray-800 bg-gray-950 px-3 text-sm text-gray-100 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30"
+              className="mt-1 h-11 w-full rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-950 px-3 text-sm text-slate-900 dark:text-gray-100 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30"
             />
           </label>
           <label className="block">
-            <span className="text-[11px] text-gray-400">
+            <span className="text-[11px] text-slate-600 dark:text-gray-400">
               {t("litersLabel")}
             </span>
             <input
@@ -263,11 +263,11 @@ export function FuelLog({ refreshKey, onSaved }: FuelLogProps) {
               onChange={(e) => setLiters(e.target.value)}
               placeholder="40.5"
               required
-              className="mt-1 h-11 w-full rounded-xl border border-gray-800 bg-gray-950 px-3 text-sm text-gray-100 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30"
+              className="mt-1 h-11 w-full rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-950 px-3 text-sm text-slate-900 dark:text-gray-100 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30"
             />
           </label>
           <label className="block">
-            <span className="text-[11px] text-gray-400">
+            <span className="text-[11px] text-slate-600 dark:text-gray-400">
               {t("costPerLiterLabel")}
             </span>
             <input
@@ -279,7 +279,7 @@ export function FuelLog({ refreshKey, onSaved }: FuelLogProps) {
               onChange={(e) => setCostPerLiter(e.target.value)}
               placeholder="2.18"
               required
-              className="mt-1 h-11 w-full rounded-xl border border-gray-800 bg-gray-950 px-3 text-sm text-gray-100 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30"
+              className="mt-1 h-11 w-full rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-950 px-3 text-sm text-slate-900 dark:text-gray-100 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/30"
             />
           </label>
         </div>
@@ -299,13 +299,13 @@ export function FuelLog({ refreshKey, onSaved }: FuelLogProps) {
 
       {/* List */}
       {loading && (
-        <div className="flex items-center gap-2 text-xs text-gray-400">
+        <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-gray-400">
           <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
         </div>
       )}
 
       {!loading && entries.length === 0 && (
-        <div className="rounded-2xl border border-dashed border-gray-800 px-4 py-6 text-center text-sm text-gray-500">
+        <div className="rounded-2xl border border-dashed border-slate-200 dark:border-gray-800 px-4 py-6 text-center text-sm text-slate-600 dark:text-gray-500">
           {t("noFuelYet")}
         </div>
       )}
@@ -314,17 +314,17 @@ export function FuelLog({ refreshKey, onSaved }: FuelLogProps) {
         {visible.map((f) => (
           <li
             key={f.id}
-            className="flex items-center gap-3 rounded-2xl border border-gray-800 bg-gray-900/60 p-3"
+            className="flex items-center gap-3 rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-3"
           >
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-orange-500/20 to-amber-500/10 text-orange-300">
               <Fuel className="h-5 w-5" aria-hidden />
             </span>
             <div className="min-w-0 flex-1">
-              <div className="text-sm font-semibold text-gray-100">
+              <div className="text-sm font-semibold text-slate-900 dark:text-gray-100">
                 {f.odometerKm.toLocaleString()} {t("kmUnit")} ·{" "}
                 {f.liters.toFixed(1)} L
               </div>
-              <div className="text-[11px] text-gray-500">
+              <div className="text-[11px] text-slate-600 dark:text-gray-500">
                 {formatter.format(new Date(f.date))} ·{" "}
                 {f.costPerLiter.toFixed(2)}/L
               </div>
@@ -336,7 +336,7 @@ export function FuelLog({ refreshKey, onSaved }: FuelLogProps) {
               type="button"
               onClick={() => onDelete(f.id)}
               aria-label={t("deleteAction")}
-              className="rounded-lg p-1.5 text-gray-500 transition-colors hover:bg-rose-500/10 hover:text-rose-300 active:scale-95"
+              className="rounded-lg p-1.5 text-slate-600 dark:text-gray-500 transition-colors hover:bg-rose-500/10 hover:text-rose-300 active:scale-95"
             >
               <Trash2 className="h-3.5 w-3.5" aria-hidden />
             </button>
@@ -369,15 +369,15 @@ function MetricCell({
 }) {
   const cls = TONE_CLASSES[tone] ?? TONE_CLASSES.cyan;
   return (
-    <div className="flex items-center gap-2 rounded-xl border border-gray-800 bg-gray-950/40 p-2">
+    <div className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950/40 p-2">
       <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-lg ${cls}`}>
         <Icon className="h-3.5 w-3.5" aria-hidden />
       </span>
       <div className="min-w-0">
-        <div className="truncate text-[9px] uppercase tracking-wider text-gray-500">
+        <div className="truncate text-[9px] uppercase tracking-wider text-slate-600 dark:text-gray-500">
           {label}
         </div>
-        <div className="truncate text-xs font-semibold text-gray-100">
+        <div className="truncate text-xs font-semibold text-slate-900 dark:text-gray-100">
           {value}
         </div>
       </div>

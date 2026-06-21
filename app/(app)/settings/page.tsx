@@ -158,11 +158,11 @@ export default function SettingsPage() {
   return (
     <section className="flex flex-1 flex-col gap-6">
       <header className="space-y-2">
-        <h1 className="flex items-center gap-2 text-3xl font-extrabold tracking-tight text-gray-100">
-          <SettingsIcon className="h-7 w-7 text-gray-300" aria-hidden />
+        <h1 className="flex items-center gap-2 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-gray-100">
+          <SettingsIcon className="h-7 w-7 text-slate-700 dark:text-gray-300" aria-hidden />
           الإعدادات
         </h1>
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-slate-600 dark:text-gray-400">
           أدر بيانات تطبيقك المحلية، صدّر نسخة احتياطية، وتحكّم في اللغة.
         </p>
       </header>
@@ -171,10 +171,10 @@ export default function SettingsPage() {
       <AuthPanel />
 
       {/* Storage stats */}
-      <article className="space-y-3 rounded-3xl border border-gray-800 bg-gray-950/70 p-5 shadow-lg backdrop-blur">
+      <article className="space-y-3 rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950/70 p-5 shadow-lg backdrop-blur">
         <header className="flex items-center gap-2">
           <Database className="h-5 w-5 text-blue-300" aria-hidden />
-          <h2 className="text-lg font-semibold text-gray-100">التخزين المحلي</h2>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-gray-100">التخزين المحلي</h2>
         </header>
         <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
           <Stat label="مصاريف" value={counts?.expenses} />
@@ -184,18 +184,18 @@ export default function SettingsPage() {
           <Stat label="صيانة" value={counts?.maintenanceLog} />
           <Stat label="وقود" value={counts?.fuel} />
         </div>
-        <p className="text-[11px] text-gray-500">
+        <p className="text-[11px] text-slate-600 dark:text-gray-500">
           الإجمالي: {totalRecords} سجل محفوظ في IndexedDB على هذا الجهاز فقط.
         </p>
       </article>
 
       {/* Export */}
-      <article className="space-y-3 rounded-3xl border border-gray-800 bg-gray-950/70 p-5 shadow-lg backdrop-blur">
+      <article className="space-y-3 rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950/70 p-5 shadow-lg backdrop-blur">
         <header className="flex items-center gap-2">
           <Download className="h-5 w-5 text-emerald-300" aria-hidden />
-          <h2 className="text-lg font-semibold text-gray-100">تصدير البيانات</h2>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-gray-100">تصدير البيانات</h2>
         </header>
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-slate-600 dark:text-gray-400">
           ينزّل ملفاً على جهازك. لا يُرسل أي شيء لأي خادم.
         </p>
 
@@ -236,12 +236,12 @@ export default function SettingsPage() {
       </article>
 
       {/* Restore */}
-      <article className="space-y-3 rounded-3xl border border-gray-800 bg-gray-950/70 p-5 shadow-lg backdrop-blur">
+      <article className="space-y-3 rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950/70 p-5 shadow-lg backdrop-blur">
         <header className="flex items-center gap-2">
           <Upload className="h-5 w-5 text-cyan-300" aria-hidden />
-          <h2 className="text-lg font-semibold text-gray-100">استعادة نسخة احتياطية</h2>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-gray-100">استعادة نسخة احتياطية</h2>
         </header>
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-slate-600 dark:text-gray-400">
           استورد ملف JSON صادر سابقاً من هذه الصفحة. يدعم وضعَين: دمج مع البيانات
           الحالية، أو استبدالها بالكامل.
         </p>
@@ -266,8 +266,8 @@ export default function SettingsPage() {
         </button>
 
         {restoreFile && (
-          <div className="space-y-2 rounded-2xl border border-gray-800 bg-gray-900/60 p-3">
-            <div className="text-[11px] uppercase tracking-wider text-gray-500">
+          <div className="space-y-2 rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-3">
+            <div className="text-[11px] uppercase tracking-wider text-slate-600 dark:text-gray-500">
               وضع الاستعادة
             </div>
             <div className="grid grid-cols-2 gap-2">
@@ -340,10 +340,10 @@ export default function SettingsPage() {
       </article>
 
       {/* Language */}
-      <article className="space-y-3 rounded-3xl border border-gray-800 bg-gray-950/70 p-5 shadow-lg backdrop-blur">
+      <article className="space-y-3 rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950/70 p-5 shadow-lg backdrop-blur">
         <header className="flex items-center gap-2">
           <Languages className="h-5 w-5 text-amber-300" aria-hidden />
-          <h2 className="text-lg font-semibold text-gray-100">اللغة</h2>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-gray-100">اللغة</h2>
         </header>
         <div className="flex flex-wrap gap-2">
           {SUPPORTED_LANGUAGES.map((l) => (
@@ -354,7 +354,7 @@ export default function SettingsPage() {
               className={`rounded-xl border px-4 py-2 text-sm font-medium transition-colors active:scale-95 ${
                 language === l
                   ? "border-amber-500/40 bg-amber-500/15 text-amber-200"
-                  : "border-gray-800 bg-gray-900 text-gray-300 hover:border-amber-500/30"
+                  : "border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-900 text-slate-700 dark:text-gray-300 hover:border-amber-500/30"
               }`}
             >
               {LOCALE_LABEL[l]}
@@ -367,7 +367,7 @@ export default function SettingsPage() {
       <article className="space-y-3 rounded-3xl border border-rose-500/30 bg-rose-500/5 p-5 shadow-lg backdrop-blur">
         <header className="flex items-center gap-2">
           <AlertTriangle className="h-5 w-5 text-rose-400" aria-hidden />
-          <h2 className="text-lg font-semibold text-gray-100">منطقة الخطر</h2>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-gray-100">منطقة الخطر</h2>
         </header>
         <p className="text-xs text-rose-200/80">
           هذا الإجراء يحذف كل البيانات المحلية نهائياً (مصاريف، فحوصات، مواقع،
@@ -390,7 +390,7 @@ export default function SettingsPage() {
               type="button"
               onClick={() => setConfirmClear(false)}
               disabled={busy === "clear"}
-              className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl border border-gray-800 bg-gray-900 px-4 text-sm font-medium text-gray-300 active:scale-[0.98]"
+              className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-900 px-4 text-sm font-medium text-slate-700 dark:text-gray-300 active:scale-[0.98]"
             >
               إلغاء
             </button>
@@ -421,7 +421,7 @@ export default function SettingsPage() {
         </div>
       )}
 
-      <footer className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-t border-gray-800 pt-4 text-[11px] text-gray-500">
+      <footer className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-t border-slate-200 dark:border-gray-800 pt-4 text-[11px] text-slate-600 dark:text-gray-500">
         <a
           href="/privacy"
           className="hover:text-gray-300 hover:underline"
@@ -470,7 +470,7 @@ function ModeButton({
       className={`rounded-xl border p-2 text-start text-xs transition-colors active:scale-95 ${
         active
           ? activeClass
-          : "border-gray-800 bg-gray-950 text-gray-300 hover:border-gray-700"
+          : "border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-950 text-slate-700 dark:text-gray-300 hover:border-gray-700"
       }`}
     >
       <div className="font-semibold">{label}</div>
@@ -481,11 +481,11 @@ function ModeButton({
 
 function Stat({ label, value }: { label: string; value: number | undefined }) {
   return (
-    <div className="rounded-xl border border-gray-800 bg-gray-900/60 p-3 text-center">
-      <div className="text-2xl font-extrabold text-gray-100">
+    <div className="rounded-xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-3 text-center">
+      <div className="text-2xl font-extrabold text-slate-900 dark:text-gray-100">
         {value === undefined ? "—" : value}
       </div>
-      <div className="mt-0.5 text-[10px] uppercase tracking-wider text-gray-500">
+      <div className="mt-0.5 text-[10px] uppercase tracking-wider text-slate-600 dark:text-gray-500">
         {label}
       </div>
     </div>
@@ -525,7 +525,7 @@ function ExportButton({
       disabled={busy}
       className={`flex items-center gap-3 rounded-2xl border p-3 text-start transition-colors active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 ${TONE_CLASSES[tone]}`}
     >
-      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gray-950/40">
+      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white dark:bg-gray-950/40">
         {busy ? (
           <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
         ) : (

@@ -72,11 +72,11 @@ export function MaintenanceCountdowns() {
   });
 
   return (
-    <section className="space-y-4 rounded-3xl border border-gray-800 bg-gray-950/70 p-5 shadow-lg backdrop-blur">
+    <section className="space-y-4 rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950/70 p-5 shadow-lg backdrop-blur">
       <header className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <Gauge className="h-5 w-5 text-blue-300" aria-hidden />
-          <h2 className="text-lg font-semibold text-gray-100">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-gray-100">
             {t("maintenanceCountdowns")}
           </h2>
         </div>
@@ -87,13 +87,13 @@ export function MaintenanceCountdowns() {
           className={`inline-flex items-center gap-1 rounded-xl border px-2.5 py-1.5 text-[11px] transition-colors active:scale-95 ${
             historyOpen
               ? "border-blue-500/40 bg-blue-500/10 text-blue-200"
-              : "border-gray-800 bg-gray-900 text-gray-400 hover:text-gray-200"
+              : "border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-900 text-slate-600 dark:text-gray-400 hover:text-gray-200"
           }`}
         >
           <History className="h-3.5 w-3.5" aria-hidden />
           {t("serviceHistory")}
           {log.entries.length > 0 && (
-            <span className="ms-1 rounded-full bg-gray-950 px-1.5 text-[10px] text-gray-300">
+            <span className="ms-1 rounded-full bg-slate-100 dark:bg-gray-950 px-1.5 text-[10px] text-slate-700 dark:text-gray-300">
               {log.entries.length}
             </span>
           )}
@@ -101,7 +101,7 @@ export function MaintenanceCountdowns() {
       </header>
 
       <label className="block">
-        <span className="text-xs text-gray-400">{t("currentKmLabel")}</span>
+        <span className="text-xs text-slate-600 dark:text-gray-400">{t("currentKmLabel")}</span>
         <div className="mt-1 flex items-center gap-2">
           <input
             type="number"
@@ -110,9 +110,9 @@ export function MaintenanceCountdowns() {
             step="100"
             value={currentKmInput}
             onChange={(e) => setCurrentKmInput(e.target.value)}
-            className="h-12 w-full rounded-2xl border border-gray-800 bg-gray-950 px-4 text-base text-gray-100 outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
+            className="h-12 w-full rounded-2xl border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-950 px-4 text-base text-slate-900 dark:text-gray-100 outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
           />
-          <span className="text-sm text-gray-400">{t("kmUnit")}</span>
+          <span className="text-sm text-slate-600 dark:text-gray-400">{t("kmUnit")}</span>
         </div>
       </label>
 
@@ -131,7 +131,7 @@ export function MaintenanceCountdowns() {
                 type="button"
                 onClick={() => markDone(item.id as MaintenanceType)}
                 disabled={busyType !== null}
-                className="inline-flex w-full items-center justify-center gap-1 rounded-xl border border-gray-800 bg-gray-900 px-2 py-1.5 text-[10px] font-medium text-gray-300 transition-colors hover:border-emerald-500/40 hover:text-emerald-300 active:scale-95 disabled:opacity-50"
+                className="inline-flex w-full items-center justify-center gap-1 rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-900 px-2 py-1.5 text-[10px] font-medium text-slate-700 dark:text-gray-300 transition-colors hover:border-emerald-500/40 hover:text-emerald-300 active:scale-95 disabled:opacity-50"
               >
                 {busyType === item.id ? (
                   <Loader2 className="h-3 w-3 animate-spin" aria-hidden />
@@ -141,7 +141,7 @@ export function MaintenanceCountdowns() {
                 {t("markServiceDone")}
               </button>
               {logged && (
-                <div className="text-center text-[9px] text-gray-500">
+                <div className="text-center text-[9px] text-slate-600 dark:text-gray-500">
                   {t("lastServiceAt")} ·{" "}
                   {logged.serviceKm.toLocaleString()} {t("kmUnit")} ·{" "}
                   {formatter.format(new Date(logged.date))}

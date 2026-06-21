@@ -129,20 +129,20 @@ export function MaintenanceAdvisor() {
   }
 
   return (
-    <section className="space-y-4 rounded-2xl border border-gray-800 bg-gray-900/60 p-5 shadow-lg">
+    <section className="space-y-4 rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-5 shadow-lg">
       <header className="space-y-1">
-        <h2 className="text-lg font-semibold text-gray-100">
+        <h2 className="text-lg font-semibold text-slate-900 dark:text-gray-100">
           {t("maintenanceAdvisor")}
         </h2>
-        <p className="text-xs text-gray-400">{t("maintenanceIntro")}</p>
+        <p className="text-xs text-slate-600 dark:text-gray-400">{t("maintenanceIntro")}</p>
       </header>
 
       <form onSubmit={onSubmit} className="space-y-2">
-        <label className="block text-xs text-gray-400">
+        <label className="block text-xs text-slate-600 dark:text-gray-400">
           <span className="sr-only">{t("enterFaultCode")}</span>
           <div className="relative">
             <Search
-              className="pointer-events-none absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
+              className="pointer-events-none absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-600 dark:text-gray-500"
               aria-hidden
             />
             <input
@@ -152,7 +152,7 @@ export function MaintenanceAdvisor() {
               placeholder={t("enterFaultCode")}
               autoComplete="off"
               spellCheck={false}
-              className="w-full rounded-xl border border-gray-800 bg-gray-950 px-9 py-2.5 text-sm text-gray-100 placeholder-gray-500 outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
+              className="w-full rounded-xl border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-950 px-9 py-2.5 text-sm text-slate-900 dark:text-gray-100 placeholder-gray-500 outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
             />
           </div>
         </label>
@@ -168,7 +168,7 @@ export function MaintenanceAdvisor() {
       </form>
 
       <div className="space-y-2">
-        <div className="text-[11px] uppercase tracking-wider text-gray-500">
+        <div className="text-[11px] uppercase tracking-wider text-slate-600 dark:text-gray-500">
           {t("examples")}
         </div>
         <div className="flex flex-wrap gap-2">
@@ -177,7 +177,7 @@ export function MaintenanceAdvisor() {
               key={c}
               type="button"
               onClick={() => useExample(c)}
-              className="rounded-full border border-gray-800 bg-gray-950 px-3 py-1 text-xs font-medium text-gray-300 transition-colors hover:border-blue-500 hover:text-blue-300"
+              className="rounded-full border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-950 px-3 py-1 text-xs font-medium text-slate-700 dark:text-gray-300 transition-colors hover:border-blue-500 hover:text-blue-300"
             >
               {c}
             </button>
@@ -248,7 +248,7 @@ function ResolvedCard({ data }: { data: ResolvedExplanation }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className="space-y-3 rounded-2xl border border-gray-800 bg-gray-950/60 p-4"
+      className="space-y-3 rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950/60 p-4"
     >
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="min-w-0">
@@ -261,7 +261,7 @@ function ResolvedCard({ data }: { data: ResolvedExplanation }) {
               {t(source.labelKey)}
             </span>
           </div>
-          <h3 className="mt-1 text-sm font-semibold text-gray-100">
+          <h3 className="mt-1 text-sm font-semibold text-slate-900 dark:text-gray-100">
             {exp.title}
           </h3>
         </div>
@@ -321,11 +321,11 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-xl border border-gray-800 bg-gray-900/70 p-3">
-      <div className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">
+    <div className="rounded-xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/70 p-3">
+      <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-600 dark:text-gray-400">
         {title}
       </div>
-      <p className="mt-1 text-sm leading-relaxed text-gray-200">{children}</p>
+      <p className="mt-1 text-sm leading-relaxed text-slate-800 dark:text-gray-200">{children}</p>
     </div>
   );
 }

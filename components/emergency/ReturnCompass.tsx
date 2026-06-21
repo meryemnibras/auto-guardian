@@ -46,14 +46,14 @@ export function ReturnCompass({ parking }: ReturnCompassProps) {
   const distanceLabel = distanceMeters !== null ? formatDistance(distanceMeters) : null;
 
   return (
-    <section className="space-y-4 rounded-3xl border border-gray-800 bg-gray-950/70 p-5 shadow-lg backdrop-blur">
+    <section className="space-y-4 rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950/70 p-5 shadow-lg backdrop-blur">
       <header className="flex items-center gap-2">
         <Navigation className="h-5 w-5 text-cyan-300" aria-hidden />
-        <h2 className="text-lg font-semibold text-gray-100">
+        <h2 className="text-lg font-semibold text-slate-900 dark:text-gray-100">
           {t("returnCompassTitle")}
         </h2>
       </header>
-      <p className="text-xs text-gray-400">{t("returnCompassIntro")}</p>
+      <p className="text-xs text-slate-600 dark:text-gray-400">{t("returnCompassIntro")}</p>
 
       {!parking && <PermissionNotice description={t("noCarToTrack")} tone="info" />}
 
@@ -81,13 +81,13 @@ export function ReturnCompass({ parking }: ReturnCompassProps) {
               <Car className="h-5 w-5" aria-hidden />
             </span>
             <div className="flex flex-col items-center text-center">
-              <span className="text-[10px] uppercase tracking-wider text-gray-500">
+              <span className="text-[10px] uppercase tracking-wider text-slate-600 dark:text-gray-500">
                 {t("distanceToCar")}
               </span>
               <span className="mt-1 text-3xl font-extrabold text-cyan-200">
                 {distanceLabel ?? "—"}
               </span>
-              <span className="mt-1 inline-flex items-center gap-1 text-[11px] text-gray-400">
+              <span className="mt-1 inline-flex items-center gap-1 text-[11px] text-slate-600 dark:text-gray-400">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                 {position ? t("youAreHere") : t("waitingForUserLocation")}
               </span>
@@ -108,7 +108,7 @@ export function ReturnCompass({ parking }: ReturnCompassProps) {
               <button
                 type="button"
                 onClick={stopWatching}
-                className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl border border-gray-700 bg-gray-900 px-4 text-sm font-semibold text-gray-100 transition-transform active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-gray-500/40"
+                className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl border border-slate-300 dark:border-gray-700 bg-slate-100 dark:bg-gray-900 px-4 text-sm font-semibold text-slate-900 dark:text-gray-100 transition-transform active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-gray-500/40"
               >
                 <Square className="h-4 w-4" aria-hidden />
                 {t("stopTracking")}

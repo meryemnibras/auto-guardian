@@ -107,18 +107,18 @@ export function RecentTransactions({ refreshKey }: RecentTransactionsProps) {
   );
 
   return (
-    <section className="space-y-3 rounded-3xl border border-gray-800 bg-gray-950/70 p-5 shadow-lg backdrop-blur">
+    <section className="space-y-3 rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950/70 p-5 shadow-lg backdrop-blur">
       <header className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-100">
+        <h2 className="text-lg font-semibold text-slate-900 dark:text-gray-100">
           {t("recentTransactions")}
         </h2>
-        <span className="rounded-full border border-gray-800 bg-gray-900 px-2 py-0.5 text-[11px] text-gray-400">
+        <span className="rounded-full border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-900 px-2 py-0.5 text-[11px] text-slate-600 dark:text-gray-400">
           {items.length}
         </span>
       </header>
 
       {loading && (
-        <div className="flex items-center gap-2 text-xs text-gray-400">
+        <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-gray-400">
           <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
           {t("loadingTransactions")}
         </div>
@@ -135,7 +135,7 @@ export function RecentTransactions({ refreshKey }: RecentTransactionsProps) {
       )}
 
       {!loading && !hasError && visible.length === 0 && (
-        <div className="rounded-2xl border border-dashed border-gray-800 px-4 py-6 text-center text-sm text-gray-500">
+        <div className="rounded-2xl border border-dashed border-slate-200 dark:border-gray-800 px-4 py-6 text-center text-sm text-slate-600 dark:text-gray-500">
           {t("noTransactionsYet")}
         </div>
       )}
@@ -147,27 +147,27 @@ export function RecentTransactions({ refreshKey }: RecentTransactionsProps) {
           return (
             <li
               key={exp.id}
-              className="flex items-center gap-3 rounded-2xl border border-gray-800 bg-gray-900/60 p-3 transition-colors hover:border-gray-700"
+              className="flex items-center gap-3 rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-3 transition-colors hover:border-gray-700"
             >
               <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-blue-500/20 to-violet-500/10 text-blue-300">
                 <Icon className="h-5 w-5" aria-hidden />
               </span>
               <div className="min-w-0 flex-1">
-                <div className="text-sm font-semibold text-gray-100">
+                <div className="text-sm font-semibold text-slate-900 dark:text-gray-100">
                   {t(CATEGORY_LABEL[cat])}
                 </div>
-                <div className="text-[11px] text-gray-500">
+                <div className="text-[11px] text-slate-600 dark:text-gray-500">
                   {dateFormatter.format(new Date(exp.date))}
                 </div>
               </div>
-              <span className="text-sm font-bold text-gray-100">
+              <span className="text-sm font-bold text-slate-900 dark:text-gray-100">
                 {exp.amount.toFixed(2)}
               </span>
               <button
                 type="button"
                 onClick={() => onDelete(exp.id)}
                 aria-label={t("deleteAction")}
-                className="rounded-xl p-2 text-gray-400 transition-colors hover:bg-rose-500/10 hover:text-rose-300 active:scale-95"
+                className="rounded-xl p-2 text-slate-600 dark:text-gray-400 transition-colors hover:bg-rose-500/10 hover:text-rose-300 active:scale-95"
               >
                 <Trash2 className="h-4 w-4" aria-hidden />
               </button>

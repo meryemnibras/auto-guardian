@@ -33,7 +33,7 @@ const SOURCE_STYLE: Record<Source, string> = {
   "ai-anthropic": "bg-violet-500/15 text-violet-300 border-violet-500/30",
   "ai-gemini": "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
   mock: "bg-amber-500/15 text-amber-300 border-amber-500/30",
-  empty: "bg-gray-500/15 text-gray-300 border-gray-500/30",
+  empty: "bg-gray-500/15 text-slate-700 dark:text-gray-300 border-gray-500/30",
 };
 
 export function WalletSummary() {
@@ -67,14 +67,14 @@ export function WalletSummary() {
   }, [get]);
 
   return (
-    <section className="space-y-4 rounded-3xl border border-gray-800 bg-gray-950/70 p-5 shadow-lg backdrop-blur">
+    <section className="space-y-4 rounded-3xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-950/70 p-5 shadow-lg backdrop-blur">
       <header className="flex items-start gap-2">
         <FileText className="mt-0.5 h-5 w-5 text-violet-300" aria-hidden />
         <div>
-          <h2 className="text-lg font-semibold text-gray-100">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-gray-100">
             {t("walletSummaryTitle")}
           </h2>
-          <p className="mt-0.5 text-xs text-gray-400">
+          <p className="mt-0.5 text-xs text-slate-600 dark:text-gray-400">
             {t("walletSummaryIntro")}
           </p>
         </div>
@@ -101,7 +101,7 @@ export function WalletSummary() {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="space-y-3 rounded-2xl border border-gray-800 bg-gray-900/60 p-4"
+            className="space-y-3 rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-4"
           >
             <div className="flex flex-wrap items-center gap-2 text-[11px]">
               <span
@@ -112,15 +112,15 @@ export function WalletSummary() {
                 {t(SOURCE_LABEL[state.data.source])}
               </span>
               {state.data.total > 0 && (
-                <span className="text-gray-500">
+                <span className="text-slate-600 dark:text-gray-500">
                   {state.data.total.toFixed(2)} ·{" "}
-                  <span className="text-gray-300">{state.data.topCategory}</span>
+                  <span className="text-slate-700 dark:text-gray-300">{state.data.topCategory}</span>
                 </span>
               )}
             </div>
             <p
               dir="auto"
-              className="whitespace-pre-wrap text-sm leading-relaxed text-gray-200"
+              className="whitespace-pre-wrap text-sm leading-relaxed text-slate-800 dark:text-gray-200"
             >
               {state.data.summary}
             </p>
